@@ -44,7 +44,7 @@ function _handleFees(address token, address integrator, uint256 balance, uint256
 }
 ```
 
-[Source: Airlock.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/Airlock.sol) (lines 237-252)
+[Source: Airlock.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/Airlock.sol) (lines 237-252)
 
 ---
 
@@ -114,7 +114,7 @@ integratorFees = 1 - 0.2 = 0.8 ETH
 6. liquidityMigrator.migrate(...)
 ```
 
-[Source: Airlock.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/Airlock.sol) (lines 194-226)
+[Source: Airlock.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/Airlock.sol) (lines 194-226)
 
 ---
 
@@ -129,7 +129,7 @@ function collectProtocolFees(address to, address token, uint256 amount) external
 }
 ```
 
-[Source: Airlock.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/Airlock.sol) (lines 278-288)
+[Source: Airlock.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/Airlock.sol) (lines 278-288)
 
 ### Integrator Fees (Integrator Only)
 
@@ -140,7 +140,7 @@ function collectIntegratorFees(address to, address token, uint256 amount) extern
 }
 ```
 
-[Source: Airlock.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/Airlock.sol) (lines 296-306)
+[Source: Airlock.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/Airlock.sol) (lines 296-306)
 
 ---
 
@@ -153,7 +153,7 @@ The integrator is set during `Airlock.create()`:
 integrator: createData.integrator == address(0) ? owner() : createData.integrator
 ```
 
-[Source: Airlock.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/Airlock.sol) (lines 182)
+[Source: Airlock.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/Airlock.sol) (lines 182)
 
 ---
 
@@ -167,4 +167,4 @@ mapping(address token => uint256 amount) public getProtocolFees;
 mapping(address integrator => mapping(address token => uint256 amount)) public getIntegratorFees;
 ```
 
-[Source: Airlock.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/Airlock.sol) (lines 121-122)
+[Source: Airlock.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/Airlock.sol) (lines 121-122)

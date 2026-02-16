@@ -11,7 +11,7 @@ function _getCurrentEpoch() internal view returns (uint256) {
 
 **Note**: Epochs are 1-indexed.
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 791-794)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 791-794)
 
 ## Normalized Time Elapsed
 
@@ -25,7 +25,7 @@ Returns elapsed time as a fraction of total time, scaled by 1e18.
 
 **Example**: If 50% of time has passed, returns `0.5e18`.
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 798-800)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 798-800)
 
 ## Expected Amount Sold
 
@@ -50,7 +50,7 @@ function _getExpectedAmountSoldWithEpochOffset(int256 offset) internal view retu
 - `offset = 1`: Expected sold by end of current epoch
 - `offset = -1`: Expected sold by end of epoch before previous
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 806-814)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 806-814)
 
 ## Tick Accumulator
 
@@ -58,7 +58,7 @@ The tick accumulator tracks cumulative price adjustments across epochs. It's sto
 
 ### Three Dynamic Auction Modes
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 621-675)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 621-675)
 
 #### Mode 1: Max Adjustment
 
@@ -112,7 +112,7 @@ function _getMaxTickDeltaPerEpoch() internal view returns (int256) {
 
 **Formula**: `maxDelta = (endingTick - effectiveStartingTick) * 1e18 / numEpochs`
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 818-832)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 818-832)
 
 ### Multiple Skipped Epochs
 
@@ -130,7 +130,7 @@ while (epochsPassed > 1) {
 }
 ```
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 667-675)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 667-675)
 
 ## Tick Range from Accumulator
 
@@ -153,7 +153,7 @@ function _getTicksBasedOnState(
 
 **Key insight**: `gamma` determines the constant width of the bonding curve.
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 886-900)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 886-900)
 
 ## Tick Alignment
 
@@ -179,13 +179,13 @@ function _alignComputedTickWithTickSpacing(int24 tick, int24 tickSpacing) intern
 }
 ```
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 838-858)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 838-858)
 
 ## Slug Calculations
 
 ### Lower Slug (Refund Support)
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 913-945)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 913-945)
 
 **Normal case** (sufficient proceeds):
 ```solidity
@@ -217,11 +217,11 @@ function _computeRequiredProceeds(
 
 **Purpose**: Calculate how much numeraire is needed to support selling back `amount` of asset tokens.
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 865-878)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 865-878)
 
 ### Upper Slug (Current Epoch)
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 957-994)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 957-994)
 
 ```solidity
 int256 tokensSoldDelta = int256(_getExpectedAmountSoldWithEpochOffset(1)) - int256(totalTokensSold_);
@@ -243,7 +243,7 @@ if (tokensSoldDelta > 0) {
 
 ### Price Discovery Slugs (Future Epochs)
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 1004-1059)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 1004-1059)
 
 ```solidity
 // Determine how many slugs to place (bounded by remaining epochs)
@@ -271,7 +271,7 @@ for (uint256 i; i < pdSlugsToLp; ++i) {
 
 ## Insufficient Proceeds: Average Price
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 1301-1339)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 1301-1339)
 
 ```solidity
 function _computeLowerSlugInsufficientProceeds(
@@ -310,7 +310,7 @@ function _computeLowerSlugInsufficientProceeds(
 
 ## Fee Exclusion in Accounting
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 537-572)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 537-572)
 
 ```solidity
 uint24 swapFee = protocolFee.calculateSwapFee(lpFee);
@@ -344,4 +344,4 @@ function _computeLiquidity(
 }
 ```
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 1080-1094)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 1080-1094)

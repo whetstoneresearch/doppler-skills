@@ -22,7 +22,7 @@ constructor(
     uint24 initialLpFee_
 )
 ```
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 274-289)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 274-289)
 
 ## Parameter Details
 
@@ -50,7 +50,7 @@ if (
 if (gamma % key.tickSpacing != 0) revert InvalidGamma();
 ```
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 235, 307-312, 355)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 235, 307-312, 355)
 
 ### `upperSlugRange` (int24) - Derived
 
@@ -63,13 +63,13 @@ upperSlugRange = FullMath.mulDiv(normalizedEpochDelta, uint256(int256(gamma_)), 
 
 **Formula**: `upperSlugRange = gamma * (epochLength / totalTime)`
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 324-327)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 324-327)
 
 ### `numTokensToSell` (uint256)
 
 Total number of tokens available to be sold by the hook.
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 211)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 211)
 
 ### `minimumProceeds` (uint256)
 
@@ -78,7 +78,7 @@ Proceeds threshold below which triggers refund phase.
 - If `totalProceeds < minimumProceeds` at `endingTime`, enters insufficient proceeds mode
 - Can be 0 (no minimum)
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 214)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 214)
 
 ### `maximumProceeds` (uint256)
 
@@ -93,7 +93,7 @@ Proceeds threshold that triggers early exit.
 if (minimumProceeds_ > maximumProceeds_) revert InvalidProceedLimits();
 ```
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 217, 321)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 217, 321)
 
 ### `startingTime` / `endingTime` (uint256)
 
@@ -104,7 +104,7 @@ Unix timestamps for sale start and end.
 - `endingTime` must be > `startingTime`
 - `(endingTime - startingTime) % epochLength` must equal 0
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 220-223, 293, 304, 314)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 220-223, 293, 304, 314)
 
 ### `startingTick` / `endingTick` (int24)
 
@@ -122,7 +122,7 @@ if (startingTick_ != endingTick_) {
 }
 ```
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 226-229, 297-300)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 226-229, 297-300)
 
 ### `epochLength` (uint256)
 
@@ -133,7 +133,7 @@ Duration of each epoch in seconds. Determines rebalance frequency.
 if (timeDelta % epochLength_ != 0) revert InvalidEpochLength();
 ```
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 232, 314)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 232, 314)
 
 ### `numPDSlugs` (uint256)
 
@@ -148,7 +148,7 @@ if (numPDSlugs_ == 0) revert InvalidNumPDSlugs();
 if (numPDSlugs_ > MAX_PRICE_DISCOVERY_SLUGS) revert InvalidNumPDSlugs();
 ```
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 241, 162, 317-318)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 241, 162, 317-318)
 
 ### `isToken0` (bool)
 
@@ -159,13 +159,13 @@ Whether token0 is the asset being sold.
 
 **Impact**: Affects tick direction, rounding, and all position calculations.
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 238)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 238)
 
 ### `initialLpFee` (uint24)
 
 Initial swap fee for the pool. Set via `poolManager.updateDynamicLPFee()` after initialization.
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 244, 371)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 244, 371)
 
 ## State Struct
 
@@ -182,7 +182,7 @@ struct State {
 }
 ```
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 44-51)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 44-51)
 
 ## Position Struct
 
@@ -197,7 +197,7 @@ struct Position {
 }
 ```
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 59-64)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 59-64)
 
 ## SlugData Struct
 
@@ -211,7 +211,7 @@ struct SlugData {
 }
 ```
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 30-34)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 30-34)
 
 ## Constants
 
@@ -226,7 +226,7 @@ struct SlugData {
 | `UPPER_SLUG_SALT` | `bytes32(2)` | Salt for upper slug position |
 | `DISCOVERY_SLUG_SALT` | `bytes32(3)` | Starting salt for PD slugs |
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 153-171)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 153-171)
 
 ## Comparison with V3 Parameters
 
@@ -246,7 +246,7 @@ struct SlugData {
 
 ## Note: Far Tick vs Ending Tick
 
-V4 dynamic auctions do **not** use a `farTick` parameter like V3 static or V4 multicurve auctions.
+V4 Dynamic auctions do **not** use a `farTick` parameter like V3 static or V4 multicurve auctions.
 
 **Key differences**:
 
@@ -257,7 +257,7 @@ V4 dynamic auctions do **not** use a `farTick` parameter like V3 static or V4 mu
 | Migration | Tick comparison | `minimumProceeds`/`maximumProceeds` |
 
 **Why no farTick**:
-- V4 dynamic auctions exit based on proceeds collected, not tick position
+- V4 Dynamic auctions exit based on proceeds collected, not tick position
 - `endingTick` defines the price range for calculations, not an exit condition
 - Early exit triggers when `totalProceeds >= maximumProceeds`
 - Normal exit triggers at `endingTime` if `totalProceeds >= minimumProceeds`

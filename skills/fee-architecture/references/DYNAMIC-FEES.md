@@ -34,7 +34,7 @@ PoolKey memory poolKey = PoolKey({
 });
 ```
 
-[Source: UniswapV4Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV4Initializer.sol) (lines 108)
+[Source: UniswapV4Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV4Initializer.sol) (lines 108)
 
 ---
 
@@ -64,7 +64,7 @@ The hook or authorized contract calls PoolManager:
 poolManager.updateDynamicLPFee(poolKey, newLpFee);
 ```
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 371)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 371)
 
 ### In DopplerHookInitializer
 
@@ -76,7 +76,42 @@ function updateDynamicLPFee(address asset, uint24 lpFee) external {
 }
 ```
 
-[Source: DopplerHookInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/DopplerHookInitializer.sol) (lines 425-430)
+[Source: DopplerHookInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/DopplerHookInitializer.sol) (lines 425-430)
+
+---
+
+## Fee Decay Schedule (Multicurve Decay Variant)
+
+The decay multicurve path uses a hook-managed linear fee schedule:
+
+- `startFee`: fee used at schedule start
+- `fee` (end fee): terminal fee after decay completes
+- `durationSeconds`: linear decay window
+- `startingTime`: timestamp when decay begins
+
+Validation constraints in the initializer/hook:
+
+- `startFee <= MAX_LP_FEE`
+- `fee <= MAX_LP_FEE`
+- `startFee >= fee`
+- If `startFee > fee`, `durationSeconds > 0`
+
+Runtime behavior:
+
+- At schedule set, the hook seeds pool fee to `startFee` via `updateDynamicLPFee`.
+- Before `startingTime`, swaps are allowed and still execute at `startFee`.
+- During decay, each `beforeSwap` computes the current fee and updates only when fee has dropped.
+- After `startingTime + durationSeconds`, fee stays at terminal `fee`.
+
+Linear interpolation:
+
+```solidity
+feeDelta = (startFee - endFee) * elapsed / durationSeconds;
+currentFee = startFee - feeDelta;
+```
+
+[Source: DecayMulticurveInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/DecayMulticurveInitializer.sol) (lines 84-91, 126-127)  
+[Source: DecayMulticurveInitializerHook.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/DecayMulticurveInitializerHook.sol) (lines 92-104, 128-146, 164-166)
 
 ---
 
@@ -100,7 +135,7 @@ For dynamic fee pools, an initial fee is set after initialization:
 poolManager.updateDynamicLPFee(key, initialLpFee);
 ```
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 371)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 371)
 
 This sets the starting fee before any swaps occur.
 
@@ -146,7 +181,7 @@ PoolKey memory poolKey = PoolKey({
 });
 ```
 
-[Source: DopplerHookInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/DopplerHookInitializer.sol) (lines 277)
+[Source: DopplerHookInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/DopplerHookInitializer.sol) (lines 277)
 
 ---
 

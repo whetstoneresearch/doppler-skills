@@ -1,6 +1,6 @@
 # V4 Dynamic Auction Gotchas
 
-Critical edge cases and common pitfalls when working with V4 dynamic auctions.
+Critical edge cases and common pitfalls when working with V4 Dynamic auctions.
 
 ## 1. Token Ordering (Same as V3)
 
@@ -17,7 +17,7 @@ Critical edge cases and common pitfalls when working with V4 dynamic auctions.
 if (isToken0_ && startingTick_ < endingTick_) revert InvalidTickRange();
 if (!isToken0_ && startingTick_ > endingTick_) revert InvalidTickRange();
 ```
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 298-299)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 298-299)
 
 **Rule of thumb**:
 - `isToken0 = true`: startingTick > endingTick (price decreases)
@@ -35,7 +35,7 @@ if (_getCurrentEpoch() <= uint256(state.lastEpoch)) {
     return (BaseHook.beforeSwap.selector, BeforeSwapDeltaLibrary.ZERO_DELTA, 0);
 }
 ```
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 404-407)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 404-407)
 
 **Impact**:
 - If no swaps occur for multiple epochs, rebalance catches up all at once
@@ -49,7 +49,7 @@ while (epochsPassed > 1) {
     // Apply dynamic auction for each missed epoch
 }
 ```
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 667-675)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 667-675)
 
 ---
 
@@ -65,7 +65,7 @@ if (state.totalProceeds < minimumProceeds) {
     // ... repositions to average price ...
 }
 ```
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 415-458)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 415-458)
 
 **Behavior**:
 - Only asset→numeraire swaps allowed (users sell back tokens)
@@ -85,7 +85,7 @@ if (state.totalProceeds < minimumProceeds) {
 ```solidity
 if (earlyExit) revert MaximumProceedsReached();
 ```
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 400)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 400)
 
 **Impact**:
 - No further trading possible after early exit
@@ -103,7 +103,7 @@ if (earlyExit) revert MaximumProceedsReached();
 uint256 tokensSoldLessFee = FullMath.mulDiv(uint128(-amount0), MAX_SWAP_FEE - swapFee, MAX_SWAP_FEE);
 state.totalTokensSold -= tokensSoldLessFee;
 ```
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 545-546)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 545-546)
 
 **Impact**:
 - Expected sales curve is based on pre-fee amounts
@@ -114,7 +114,7 @@ state.totalTokensSold -= tokensSoldLessFee;
 ```solidity
 state.feesAccrued = add(state.feesAccrued, feeDeltas);
 ```
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 1121)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 1121)
 
 ---
 
@@ -133,7 +133,7 @@ if (tickAboveCurve) {
     poolManager.swap(key, SwapParams({...}), "");  // Move price back up
 }
 ```
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 507-535)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 507-535)
 
 **Impact**:
 - Large swaps may trigger small corrective swaps
@@ -176,7 +176,7 @@ if (gamma % key.tickSpacing != 0) revert InvalidGamma();
 
 **Impact**: If you're looking for where initial positions are placed, check `_unlockCallback`, not `_rebalance`.
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (line 372 triggers unlock callback)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (line 372 triggers unlock callback)
 
 ---
 
@@ -191,7 +191,7 @@ function migrate(address recipient) external returns (...) {
     // ...
 }
 ```
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 1385)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 1385)
 
 **Impact**:
 - `initializer` is set at deployment (typically the Airlock contract)
@@ -208,13 +208,13 @@ function migrate(address recipient) external returns (...) {
 ```solidity
 if (block.timestamp < startingTime) revert CannotSwapBeforeStartTime();
 ```
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 402)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 402)
 
 **Additional constructor check**:
 ```solidity
 if (block.timestamp > startingTime_) revert InvalidStartTime();
 ```
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 293)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 293)
 
 **Impact**: Pool can be initialized before start time, but swaps are blocked.
 
@@ -228,7 +228,7 @@ if (block.timestamp > startingTime_) revert InvalidStartTime();
 ```solidity
 if (key.tickSpacing > MAX_TICK_SPACING) revert InvalidTickSpacing();
 ```
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 350)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 350)
 
 **Impact**: Cannot use high tick spacing pools (e.g., 200 for 1% fee) with Doppler hooks.
 
@@ -244,7 +244,7 @@ function _beforeDonate(...) internal pure override returns (bytes4) {
     revert CannotDonate();
 }
 ```
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 377-385)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 377-385)
 
 **Impact**: Cannot donate tokens to the pool to add liquidity outside of normal operations.
 
@@ -260,7 +260,7 @@ if (slug.liquidity == 0) {
     slug.tickLower = slug.tickUpper;
 }
 ```
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 942-944)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 942-944)
 
 **Why**: Prevents swaps from entering empty ranges, which would otherwise cause accounting issues.
 

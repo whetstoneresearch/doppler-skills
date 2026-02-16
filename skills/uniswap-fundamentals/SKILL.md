@@ -1,77 +1,46 @@
 ---
 name: uniswap-fundamentals
-description: Reference for Uniswap protocol concepts used in Doppler development. Covers tick math, sqrtPriceX96, liquidity formulas (V3+V4), and V4-specific features like hooks and singleton architecture. Each section clearly marks which version it applies to.
+description: Reference for Uniswap V3/V4 concepts used in Doppler development, including tick math, sqrtPriceX96, concentrated liquidity formulas, and V4 hooks/singleton architecture.
 metadata:
   author: uniswap
-  version: "1.0"
+  version: "2.0"
   source: docs.uniswap.org
 ---
 
-# Uniswap Fundamentals
+# Uniswap Fundamentals (Doppler-focused)
 
-Core Uniswap concepts needed for Doppler development. **Each section clearly indicates which version(s) it applies to.**
+## When to use
+- You need math/context for Doppler pool parameters and pricing
+- You are interpreting tick movement, liquidity ranges, or sqrtPriceX96 values
+- You are debugging V4 hook lifecycle behavior
 
-## Version Legend
+## Scope
+This skill is intentionally V3/V4-centric for current Doppler development.
 
-| Tag | Meaning |
-|-----|---------|
-| **[V2]** | Uniswap V2 only |
-| **[V3]** | Uniswap V3 only |
-| **[V4]** | Uniswap V4 only |
-| **[V3+V4]** | Applies to both V3 and V4 (concentrated liquidity) |
-
-## Version Comparison
-
-| Feature | V2 | V3 | V4 |
-|---------|----|----|-----|
-| Liquidity type | Full range | Concentrated | Concentrated |
-| Position representation | ERC-20 LP tokens | NFT | Via PoolManager |
-| Price representation | Reserves ratio | sqrtPriceX96 | sqrtPriceX96 |
-| Tick system | N/A | Yes | Yes |
-| Fee tiers | Fixed 0.3% | 0.01%, 0.05%, 0.30%, 1% | Dynamic |
-| Pool architecture | Factory + Pair contracts | Factory + Pool contracts | Singleton PoolManager |
-| Hooks | N/A | N/A | Yes |
-| Native ETH | No (WETH only) | No (WETH only) | Yes |
-
-[Source: Uniswap Docs](https://docs.uniswap.org)
-
-## Quick Reference
-
+## Core concepts map
 | Concept | Version | Reference |
-|---------|---------|-----------|
-| sqrtPriceX96 / Q notation | V3+V4 | [TICK-MATH.md](references/TICK-MATH.md) |
-| Tick-to-price conversion | V3+V4 | [TICK-MATH.md](references/TICK-MATH.md) |
-| Tick spacing by fee tier | V3 only | [TICK-MATH.md](references/TICK-MATH.md) |
-| Tick spacing (dynamic) | V4 only | [TICK-MATH.md](references/TICK-MATH.md) |
+|---|---|---|
+| sqrtPriceX96 and tick math | V3+V4 | [TICK-MATH.md](references/TICK-MATH.md) |
 | Liquidity formulas | V3+V4 | [LIQUIDITY.md](references/LIQUIDITY.md) |
-| Concentrated positions | V3+V4 | [LIQUIDITY.md](references/LIQUIDITY.md) |
-| Singleton architecture | V4 only | [V4-ARCHITECTURE.md](references/V4-ARCHITECTURE.md) |
-| Flash accounting | V4 only | [V4-ARCHITECTURE.md](references/V4-ARCHITECTURE.md) |
-| Hooks system | V4 only | [V4-HOOKS.md](references/V4-HOOKS.md) |
+| Singleton + flash accounting | V4 | [V4-ARCHITECTURE.md](references/V4-ARCHITECTURE.md) |
+| Hook lifecycle and flags | V4 | [V4-HOOKS.md](references/V4-HOOKS.md) |
 
-## Doppler Usage Map
+## Doppler usage map
+| Doppler skill | Uniswap concepts used |
+|---|---|
+| `v3-static-auction` | V3 tick spacing, range liquidity, far-tick exits |
+| `v4-dynamic-auction` | V4 hooks, epoch rebalancing, dynamic liquidity placement |
+| `v4-multicurve-auction` | V4 concentrated ranges, multicurve allocation |
+| `doppler-hook-initializer` | V4 hook permissions and callback integration |
 
-| Doppler Skill | Uniswap Concepts Used |
-|---------------|----------------------|
-| v3-static-auction | [V3] tick spacing, LiquidityAmounts, tick alignment |
-| v4-dynamic-auction | [V3+V4] sqrtPriceX96, TickMath, [V4] hooks (beforeSwap, afterSwap) |
-| v4-multicurve-auction | [V3+V4] sqrtPriceX96, LiquidityAmounts, tick alignment |
-
-## Critical: Token Ordering **[V2+V3+V4]**
-
-**All Uniswap versions** enforce `token0 < token1` ordering by address.
-
-This affects:
-- Which token is "token0" vs "token1"
+## Critical invariant
+Token ordering (`token0 < token1`) drives:
 - Tick direction interpretation
-- Price direction interpretation
-- The `isToken0` flag in Doppler contracts
-
-See [TICK-MATH.md](references/TICK-MATH.md) for how this affects calculations.
+- Price direction assumptions
+- Asset/numeraire orientation in calculations and migration logic
 
 ## References
-
-- [TICK-MATH.md](references/TICK-MATH.md) - sqrtPriceX96, Q notation, tick conversions
-- [LIQUIDITY.md](references/LIQUIDITY.md) - Liquidity formulas, concentrated positions
-- [V4-ARCHITECTURE.md](references/V4-ARCHITECTURE.md) - Singleton, flash accounting, dynamic fees
-- [V4-HOOKS.md](references/V4-HOOKS.md) - Hook lifecycle, permissions, patterns
+- [TICK-MATH.md](references/TICK-MATH.md)
+- [LIQUIDITY.md](references/LIQUIDITY.md)
+- [V4-ARCHITECTURE.md](references/V4-ARCHITECTURE.md)
+- [V4-HOOKS.md](references/V4-HOOKS.md)

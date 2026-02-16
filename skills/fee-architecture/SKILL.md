@@ -1,91 +1,58 @@
 ---
 name: fee-architecture
-description: Reference for Doppler fee collection, distribution, and configuration. Covers LP fees, protocol fees, integrator fees, beneficiary distribution, and dynamic fee modes.
+description: Reference for Doppler fee collection, distribution, and configuration across Airlock, FeesManager, locker contracts, and V4 hook-based fee paths.
 metadata:
   author: doppler
-  version: "1.0"
+  version: "2.0"
 ---
 
-> **Source References**: Code citations link to raw GitHub files pinned to commit `988dab4`. To fetch specific lines: `curl -s "<url>" | sed -n 'START,ENDp'`
+> **Source References**: Code citations link to raw GitHub files pinned to commit `46bad16d`.
 
 # Fee Architecture
 
-Reference for Doppler fee collection, distribution, and configuration.
+## When to use
+- You need to explain where fees are tracked and who can claim them
+- You are debugging protocol/integrator/beneficiary payout outcomes
+- You are changing LP fee configuration or hook-driven fee behavior
+- You are validating multicurve fee decay configuration (`startFee`, `fee`, `durationSeconds`, `startingTime`)
 
----
+## Prerequisites
+- Identify sale path (V3 static, V4 dynamic, V4 multicurve, or DopplerHookInitializer path)
+- Identify whether pool is locked (beneficiaries enabled) or migrable
 
-## Overview
+## Core workflow
+1. Identify fee surfaces in the flow:
+   - Swap-time LP fees (pool/hook context)
+   - Migration-time proceeds and protocol/integrator accounting in `Airlock`
+   - Beneficiary fee tracking in `FeesManager` / locker modules
+2. Confirm storage owner for each fee bucket:
+   - `Airlock` (`getProtocolFees`, `getIntegratorFees`)
+   - Hook-local storage (for example `RehypeDopplerHook` fee buckets)
+   - Locker/initializer `collectFees` paths for beneficiaries
+3. Validate entitlement and permissions (airlock owner, beneficiary, buyback destination, or approved caller).
+4. Reconcile balances before and after claims on-chain.
 
-Doppler implements a multi-layer fee system:
+## Quick facts
+| Fee type | Primary location | Typical claim path |
+|---|---|---|
+| Protocol/integrator accounting | `src/Airlock.sol` | Airlock-managed withdrawal flow |
+| Beneficiary fees (initializer/locker) | `src/base/FeesManager.sol`, locker modules | `collectFees(...)` |
+| Rehype beneficiary + airlock-owner buckets | `src/dopplerHooks/RehypeDopplerHook.sol` | `collectFees(asset)` / `claimAirlockOwnerFees(asset)` |
 
-1. **LP Fees**: Trading fees collected during swaps (configurable per pool)
-2. **Protocol Fees**: Whetstone's cut from LP fees (5% of fees or 0.1% of proceeds)
-3. **Integrator Fees**: Front-end integrator's share (remainder of LP fees)
-4. **Beneficiary Fees**: Distribution to locked pool beneficiaries
-
----
-
-## Quick Facts
-
-| Fee Type | Rate | Recipient | When Collected |
-|----------|------|-----------|----------------|
-| LP Fees | Configurable (0-100%) | Pool | Every swap |
-| Protocol Fees | 5% of LP fees OR 0.1% of proceeds | Whetstone | Migration |
-| Integrator Fees | Remainder of LP fees | Integrator | Migration |
-| Beneficiary Fees | Share-based (WAD) | Beneficiaries | On demand |
-
----
-
-## Fee Modes
-
-| Mode | Description | Pool Type |
-|------|-------------|-----------|
-| **Standard** | Fixed fee set at pool creation | V3 pools, V4 without hook |
-| **Dynamic** | Hook can modify fee per swap | V4 with Doppler hook |
-
----
-
-## Key Contracts
-
-| Contract | Purpose | Source |
-|----------|---------|--------|
-| `Airlock` | Protocol/integrator fee handling | `src/Airlock.sol` |
-| `FeesManager` | Beneficiary fee tracking | `src/base/FeesManager.sol` |
-| `StreamableFeesLocker` | Position-based fee streaming (V1) | `src/StreamableFeesLocker.sol` |
-| `StreamableFeesLockerV2` | Pool-based fee streaming (V2) | `src/StreamableFeesLockerV2.sol` |
-
----
-
-## Common Tasks
-
-### Check protocol fees
-```solidity
-uint256 fees = airlock.getProtocolFees(tokenAddress);
-```
-
-### Check integrator fees
-```solidity
-uint256 fees = airlock.getIntegratorFees(integratorAddress, tokenAddress);
-```
-
-### Collect beneficiary fees
-```solidity
-// For FeesManager-based contracts
-feesManager.collectFees(poolId);
-```
-
----
+## Failure modes
+- Wrong signer for privileged claim/update methods
+- Using stale pool status assumptions (`Initialized` vs `Locked`/`Graduated`)
+- Confusing proceeds split logic with LP fee accounting
+- Treating V2-only mechanics as active defaults
 
 ## References
+- [COLLECTION.md](references/COLLECTION.md)
+- [DISTRIBUTION.md](references/DISTRIBUTION.md)
+- [DYNAMIC-FEES.md](references/DYNAMIC-FEES.md)
+- Source: `doppler/src/Airlock.sol`, `doppler/src/base/FeesManager.sol`, `doppler/src/StreamableFeesLockerV2.sol`, `doppler/src/dopplerHooks/RehypeDopplerHook.sol`
 
-- [COLLECTION.md](references/COLLECTION.md) - FeesManager and beneficiary tracking
-- [DISTRIBUTION.md](references/DISTRIBUTION.md) - Protocol/integrator fee split
-- [DYNAMIC-FEES.md](references/DYNAMIC-FEES.md) - Dynamic vs standard fees
-
----
-
-## Related Skills
-
-- [v4-dynamic-auction](../v4-dynamic-auction/SKILL.md) - Dynamic fee hooks
-- [v4-multicurve-auction](../v4-multicurve-auction/SKILL.md) - Locked pools with beneficiaries
-- [token-lifecycle](../token-lifecycle/SKILL.md) - Token vesting and inflation
+## Related skills
+- [rehype](../rehype/SKILL.md)
+- [v4-dynamic-auction](../v4-dynamic-auction/SKILL.md)
+- [v4-multicurve-auction](../v4-multicurve-auction/SKILL.md)
+- [proceeds-split-migration](../proceeds-split-migration/SKILL.md)

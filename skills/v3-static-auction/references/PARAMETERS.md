@@ -13,7 +13,7 @@ struct InitData {
     uint256 maxShareToBeSold;
 }
 ```
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 44-50)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 44-50)
 
 ### Lockable (LockableUniswapV3Initializer)
 
@@ -27,7 +27,7 @@ struct InitData {
     BeneficiaryData[] beneficiaries;
 }
 ```
-[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/LockableUniswapV3Initializer.sol) (lines 81-88)
+[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/LockableUniswapV3Initializer.sol) (lines 81-88)
 
 ## Parameter Details
 
@@ -42,7 +42,7 @@ The Uniswap V3 fee tier. Determines tick spacing.
 | 10000 | 1.00% | 200 | Exotic pairs |
 
 **Validation**: Must return non-zero from `factory.feeAmountTickSpacing(fee)`
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 109-110)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 109-110)
 
 ### `tickLower` (int24)
 
@@ -58,7 +58,7 @@ require(tickLower < tickUpper, InvalidTickRangeMisordered(tickLower, tickUpper))
 // ...
 if (tick % tickSpacing != 0) revert InvalidTickRange(tick, tickSpacing);
 ```
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 107, 383-384)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 107, 383-384)
 
 ### `tickUpper` (int24)
 
@@ -77,7 +77,7 @@ Number of LP positions to create across the tick range.
 - Positions span from `closeTick` to `farTick` in equal intervals
 - More positions = finer granularity but higher gas costs
 
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 297)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 297)
 
 ### `maxShareToBeSold` (uint256)
 
@@ -90,7 +90,7 @@ Percentage of total tokens allocated for sale on the bonding curve.
 uint256 numTokensToSell = FullMath.mulDiv(totalTokensOnBondingCurve, maxShareToBeSold, WAD);
 uint256 numTokensToBond = totalTokensOnBondingCurve - numTokensToSell;
 ```
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 117-118)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 117-118)
 
 **Example**:
 - `maxShareToBeSold = 0.8e18` (80%)
@@ -107,7 +107,7 @@ struct BeneficiaryData {
     uint256 shares;
 }
 ```
-[Source: StreamableFeesLocker.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/StreamableFeesLocker.sol) (imported at [LockableUniswapV3Initializer.sol:12](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/LockableUniswapV3Initializer.sol))
+[Source: StreamableFeesLocker.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/StreamableFeesLocker.sol) (imported at [LockableUniswapV3Initializer.sol:12](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/LockableUniswapV3Initializer.sol))
 
 **Validation Rules**:
 
@@ -136,7 +136,7 @@ struct BeneficiaryData {
    require(foundProtocolOwner, InvalidProtocolOwnerBeneficiary());
    ```
 
-[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/LockableUniswapV3Initializer.sol) (lines 461-486)
+[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/LockableUniswapV3Initializer.sol) (lines 461-486)
 
 ## Constants
 
@@ -148,7 +148,7 @@ uint256 constant WAD = 1e18;
 
 Used for fixed-point arithmetic. Represents 100% in share calculations.
 
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 42), [Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/LockableUniswapV3Initializer.sol) (lines 79)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 42), [Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/LockableUniswapV3Initializer.sol) (lines 79)
 
 ## State Structures
 
@@ -167,7 +167,7 @@ struct PoolState {
     uint256 totalTokensOnBondingCurve;
 }
 ```
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 58-68)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 58-68)
 
 ### PoolState (Lockable)
 
@@ -184,7 +184,7 @@ struct PoolState {
     PoolStatus status;
 }
 ```
-[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/LockableUniswapV3Initializer.sol) (lines 103-113)
+[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/LockableUniswapV3Initializer.sol) (lines 103-113)
 
 ### PoolStatus (Lockable)
 
@@ -196,7 +196,7 @@ enum PoolStatus {
     Exited
 }
 ```
-[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/LockableUniswapV3Initializer.sol) (lines 96-101)
+[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/LockableUniswapV3Initializer.sol) (lines 96-101)
 
 ### LpPosition
 
@@ -208,7 +208,7 @@ struct LpPosition {
     uint16 id;
 }
 ```
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 70-75), [Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/LockableUniswapV3Initializer.sol) (lines 115-120)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 70-75), [Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/LockableUniswapV3Initializer.sol) (lines 115-120)
 
 ---
 
@@ -225,7 +225,7 @@ int24 farTick = isToken0 ? tickUpper : tickLower;
 int24 closeTick = isToken0 ? tickLower : tickUpper;
 ```
 
-[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/LockableUniswapV3Initializer.sol) (lines 356-357)
+[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/LockableUniswapV3Initializer.sol) (lines 356-357)
 
 ### Direction Logic
 
@@ -244,7 +244,7 @@ require(
 );
 ```
 
-[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/LockableUniswapV3Initializer.sol) (lines 243-244)
+[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/LockableUniswapV3Initializer.sol) (lines 243-244)
 
 ### Position Distribution
 
@@ -264,6 +264,6 @@ for (uint256 i; i < totalPositions; ++i) {
 }
 ```
 
-[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/LockableUniswapV3Initializer.sol) (lines 361-380)
+[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/LockableUniswapV3Initializer.sol) (lines 361-380)
 
 **See also**: [v4-multicurve-auction](../../v4-multicurve-auction/SKILL.md) for V4's explicit farTick parameter

@@ -1,84 +1,55 @@
 ---
 name: token-lifecycle
-description: Reference for Doppler token creation, vesting, and inflation mechanics. Covers DERC20 and CloneDERC20 implementations, linear vesting schedules, and capped inflation.
+description: Reference for Doppler token creation, vesting, inflation, and factory selection across DERC20, DERC2080, CloneERC20, and CloneDERC20VotesV2 paths.
 metadata:
   author: doppler
-  version: "1.0"
+  version: "2.0"
 ---
 
-> **Source References**: Code citations link to raw GitHub files pinned to commit `988dab4`. To fetch specific lines: `curl -s "<url>" | sed -n 'START,ENDp'`
+> **Source References**: Code citations link to raw GitHub files pinned to commit `46bad16d`.
 
 # Token Lifecycle
 
-Reference for Doppler token creation, vesting, and inflation mechanics.
+## When to use
+- You are choosing a token factory for a launch
+- You need vesting/inflation semantics for Doppler asset tokens
+- You are debugging vesting release, pool lock behavior, or mint-rate logic
 
----
+## Prerequisites
+- Determine required token capabilities (votes, permit, clone vs full deployment)
+- Confirm Airlock-compatible factory interface (`ITokenFactory`)
 
-## Overview
+## Core workflow
+1. Pick factory path:
+   - `TokenFactory` / `DERC20`
+   - `TokenFactory80` / `DERC2080`
+   - `CloneERC20Factory` / `CloneERC20`
+   - `CloneERC20VotesFactory` / `CloneERC20Votes`
+   - `CloneDERC20VotesV2Factory` / `CloneDERC20VotesV2` (multi-schedule vesting)
+2. Validate token data encoding expected by selected factory.
+3. Validate vesting schedule constraints and per-address/global premint caps.
+4. Verify pool lock/unlock timing relative to migration and inflation mint start.
 
-Doppler tokens are ERC20 tokens with built-in:
-- **Vesting**: Linear release of pre-allocated tokens over time
-- **Inflation**: Capped yearly minting controlled by owner
-- **Pool locking**: Prevents transfers to pool until unlocked
+## Quick facts
+| Family | Votes | Vesting model | Deployment style |
+|---|---|---|---|
+| `DERC20` / `DERC2080` | Yes | Single-schedule style | Full deployment |
+| `CloneERC20` | No | Single-schedule style | ERC1167 clone |
+| `CloneERC20Votes` | Yes | Single-schedule style | ERC1167 clone |
+| `CloneDERC20VotesV2` | Yes | Multi-schedule vesting | ERC1167 clone |
 
-Two token implementations exist:
-- **DERC20**: Standard deployment with voting rights (20% max vesting)
-- **CloneERC20**: Gas-efficient clone deployment (80% max vesting)
-
----
-
-## Quick Facts
-
-| Property | DERC20 | CloneERC20 |
-|----------|--------|------------|
-| Max vesting per address | 20% | 80% |
-| Max total vesting | 20% | 80% |
-| Max yearly inflation | 2% | 2% |
-| Voting rights | Yes (ERC20Votes) | No |
-| Permit support | Yes (ERC2612) | No |
-| Deployment cost | Higher (full bytecode) | Lower (ERC1167 proxy) |
-
----
-
-## Key Contracts
-
-| Contract | Purpose | Source |
-|----------|---------|--------|
-| `DERC20` | Full-featured token with voting | `src/tokens/DERC20.sol` |
-| `CloneERC20` | Gas-efficient cloneable token | `src/tokens/CloneERC20.sol` |
-| `TokenFactory` | Deploys DERC20 via CREATE2 | `src/tokens/TokenFactory.sol` |
-| `CloneERC20Factory` | Deploys CloneERC20 via ERC1167 | `src/tokens/CloneERC20Factory.sol` |
-
----
-
-## Common Tasks
-
-### Check vesting status
-```solidity
-VestingData memory data = token.getVestingDataOf(account);
-uint256 available = token.computeAvailableVestedAmount(account);
-```
-
-### Claim vested tokens
-```solidity
-token.release(); // Claims all available vested tokens to msg.sender
-```
-
-### Mint inflation (owner only)
-```solidity
-token.mintInflation(); // Mints accumulated inflation to owner
-```
-
----
+## Failure modes
+- Mismatched encoded token data vs selected factory ABI
+- Invalid vesting schedule arrays or lengths
+- Premint caps exceeded per address or globally
+- Attempting inflation mint before unlock/initial mint window
 
 ## References
+- [FACTORIES.md](references/FACTORIES.md)
+- [VESTING.md](references/VESTING.md)
+- Source: `doppler/src/tokens/*.sol` (especially `CloneDERC20VotesV2.sol`, `CloneDERC20VotesV2Factory.sol`)
 
-- [VESTING.md](references/VESTING.md) - Vesting mechanics and formulas
-- [FACTORIES.md](references/FACTORIES.md) - Token factory deployment patterns
-
----
-
-## Related Skills
-
-- [fee-architecture](../fee-architecture/SKILL.md) - Fee collection from token pools
-- [v4-multicurve-auction](../v4-multicurve-auction/SKILL.md) - Locked pools with beneficiaries
+## Related skills
+- [v3-static-auction](../v3-static-auction/SKILL.md)
+- [v4-dynamic-auction](../v4-dynamic-auction/SKILL.md)
+- [v4-multicurve-auction](../v4-multicurve-auction/SKILL.md)

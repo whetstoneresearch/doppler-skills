@@ -12,7 +12,7 @@ Critical edge cases and common pitfalls when working with V3 static auctions.
 // ...
 bool isToken0 = asset == token0;
 ```
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 115, 123)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 115, 123)
 
 **Impact**:
 - `isToken0` determines tick direction logic
@@ -41,7 +41,7 @@ int24 farTick = isToken0 ? getState[pool].tickUpper : getState[pool].tickLower;
 require(asset == token0 ? tick >= farTick : tick <= farTick,
     CannotMigrateInsufficientTick(farTick, tick));
 ```
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 182-183)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 182-183)
 
 **Impact**:
 - If price never reaches far tick, liquidity is **permanently locked**
@@ -69,7 +69,7 @@ startingTick = alignTickToTickSpacing(isToken0, startingTick, tickSpacing);
 if (startingTick != farTick) {
     // Only create position if not collapsed to far tick
 ```
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 309-311)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 309-311)
 
 **Example**:
 - tickSpacing = 200
@@ -104,7 +104,7 @@ reserves += (isToken0
     )
     : ...
 ```
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 334-346)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 334-346)
 
 **Why**: Undercounting ensures the tail position always has enough liquidity. Over-counting could cause the tail position mint to fail.
 
@@ -130,7 +130,7 @@ function uniswapV3MintCallback(...) external {
     ERC20(callbackData.asset).safeTransferFrom(address(airlock), pool, ...);
 }
 ```
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 216-223)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 216-223)
 
 **Security Model**:
 1. Pool address is derived from factory (not from callback data)
@@ -158,7 +158,7 @@ if (pool == address(0)) {
 
 try IUniswapV3Pool(pool).initialize(sqrtPriceX96) { } catch { }
 ```
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 120-130)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 120-130)
 
 **Behavior**:
 - If pool exists → reuse it
@@ -185,12 +185,12 @@ getState[pool].status = beneficiaries.length != 0
     ? PoolStatus.Locked
     : PoolStatus.Initialized;
 ```
-[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/LockableUniswapV3Initializer.sol) (lines 207)
+[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/LockableUniswapV3Initializer.sol) (lines 207)
 
 ```solidity
 require(getState[pool].status == PoolStatus.Initialized, PoolAlreadyExited());
 ```
-[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/LockableUniswapV3Initializer.sol) (lines 232)
+[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/LockableUniswapV3Initializer.sol) (lines 232)
 
 **Impact**:
 - `Locked` pools can NEVER call `exitLiquidity()`
@@ -213,7 +213,7 @@ require(totalShares == WAD, InvalidTotalShares());
 require(beneficiary.shares >= WAD / 20, InvalidProtocolOwnerShares()); // 5% min
 require(foundProtocolOwner, InvalidProtocolOwnerBeneficiary());
 ```
-[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/LockableUniswapV3Initializer.sol) (lines 471-485)
+[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/LockableUniswapV3Initializer.sol) (lines 471-485)
 
 **Common Mistakes**:
 1. **Unordered addresses**: Beneficiaries MUST be in ascending address order
@@ -234,7 +234,7 @@ if (totalAmtToBeSold != 0) {
     liquidity = isToken0 ? ... : ...;
 }
 ```
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 316-324)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 316-324)
 
 **Use Case**: This is used during exit to recalculate position ranges for burning (don't need liquidity values, just tick ranges).
 
@@ -256,7 +256,7 @@ if (i == beneficiaries.length - 1) {
         : 0;
 }
 ```
-[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/LockableUniswapV3Initializer.sol) (lines 281-291)
+[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/LockableUniswapV3Initializer.sol) (lines 281-291)
 
 **Behavior**: Last beneficiary in the array receives all rounding dust.
 

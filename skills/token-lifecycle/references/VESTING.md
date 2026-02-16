@@ -13,7 +13,7 @@ struct VestingData {
 }
 ```
 
-[Source: DERC20.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/tokens/DERC20.sol) (lines 60-63), [Source: CloneERC20.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/tokens/CloneERC20.sol) (lines 46-49)
+[Source: DERC20.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/tokens/DERC20.sol) (lines 60-63), [Source: CloneERC20.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/tokens/CloneERC20.sol) (lines 46-49)
 
 ---
 
@@ -31,7 +31,7 @@ if (block.timestamp < vestingStart + vestingDuration) {
 availableAmount = vestedAmount - releasedAmount;
 ```
 
-[Source: DERC20.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/tokens/DERC20.sol) (lines 264-273)
+[Source: DERC20.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/tokens/DERC20.sol) (lines 264-273)
 
 **Timeline**:
 ```
@@ -52,7 +52,7 @@ vestingStart                     vestingStart + vestingDuration
 | `MAX_TOTAL_PRE_MINT_WAD` | `0.2 ether` (20%) | Cap for all vesting |
 | `MAX_YEARLY_MINT_RATE_WAD` | `0.02 ether` (2%) | Inflation cap |
 
-[Source: DERC20.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/tokens/DERC20.sol) (lines 44-50)
+[Source: DERC20.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/tokens/DERC20.sol) (lines 44-50)
 
 ### CloneERC20 (Cloneable Token)
 
@@ -62,7 +62,7 @@ vestingStart                     vestingStart + vestingDuration
 | `MAX_TOTAL_PRE_MINT_WAD` | `0.8 ether` (80%) | Cap for all vesting |
 | `MAX_YEARLY_MINT_RATE_WAD` | `0.02 ether` (2%) | Inflation cap |
 
-[Source: CloneERC20.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/tokens/CloneERC20.sol) (lines 33-39)
+[Source: CloneERC20.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/tokens/CloneERC20.sol) (lines 33-39)
 
 ---
 
@@ -78,7 +78,7 @@ function release() external hasVestingStarted {
 }
 ```
 
-[Source: DERC20.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/tokens/DERC20.sol) (lines 253-257)
+[Source: DERC20.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/tokens/DERC20.sol) (lines 253-257)
 
 **Key points**:
 - Reverts if `vestingStart == 0` (vesting not started)
@@ -123,7 +123,7 @@ constructor(
 }
 ```
 
-[Source: DERC20.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/tokens/DERC20.sol) (lines 114-163)
+[Source: DERC20.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/tokens/DERC20.sol) (lines 114-163)
 
 ---
 
@@ -142,7 +142,7 @@ function mintInflation() public {
 }
 ```
 
-[Source: DERC20.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/tokens/DERC20.sol) (lines 183-215)
+[Source: DERC20.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/tokens/DERC20.sol) (lines 183-215)
 
 **Activation**: Inflation starts when `unlockPool()` is called (after migration).
 

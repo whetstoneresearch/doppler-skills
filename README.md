@@ -1,16 +1,14 @@
 # doppler-skills
 
-Agent Skills for working with the [Doppler Protocol](https://docs.doppler.lol) - a token launch and liquidity bootstrapping system built on Uniswap V3 and V4.
+Agent Skills for working with the [Doppler Protocol](https://docs.doppler.lol), sourced from the canonical [`whetstoneresearch/doppler`](https://github.com/whetstoneresearch/doppler) repository.
 
 ## What are Agent Skills?
 
-Agent Skills are a lightweight, open format for extending AI agent capabilities with specialized knowledge and workflows. They provide procedural knowledge and domain-specific context that agents can load on demand.
+Agent Skills are a lightweight format for extending AI agents with reusable workflows and domain-specific knowledge.
 
-Learn more at [agentskills.io](https://agentskills.io)
+Learn more at [agentskills.io](https://agentskills.io).
 
 ## Installation
-
-Add these skills to your agent using the skills CLI:
 
 ```bash
 npx skills add rustydotwtf/doppler-skills
@@ -20,35 +18,31 @@ npx skills add rustydotwtf/doppler-skills
 
 | Skill | Description |
 |-------|-------------|
-| `v3-static-auction` | Reference for Doppler V3 static auctions using UniswapV3Initializer |
-| `v4-dynamic-auction` | Reference for Doppler V4 dynamic auctions with epoch-based rebalancing |
-| `v4-multicurve-auction` | Reference for Doppler V4 multicurve auctions with shares-based allocation |
-| `token-lifecycle` | Token creation, vesting, and inflation mechanics (DERC20, CloneDERC20) |
-| `fee-architecture` | Fee collection, distribution, and configuration |
-| `uniswap-fundamentals` | Uniswap protocol concepts: tick math, sqrtPriceX96, liquidity formulas, V4 hooks |
-| `rehype` | Doppler's Rehype V4 hook for fee splits and buybacks |
-| `verification` | Guide for verifying on-chain Doppler data using cast, viem, and RPC calls |
-
-## Supported Agents
-
-These skills work with any [Agent Skills compatible](https://agentskills.io) tool, including:
-
-- Claude Code
-- OpenCode
-- Cursor
-- VS Code (Copilot)
-- Gemini CLI
-- Amp
-- Goose
-- And more
+| `v3-static-auction` | Doppler V3 static auctions (`UniswapV3Initializer`, `LockableUniswapV3Initializer`) |
+| `v4-dynamic-auction` | Doppler V4 dynamic auctions (`Doppler`) with epoch-based rebalancing |
+| `v4-dutch-auction` | Compatibility alias that redirects to `v4-dynamic-auction` |
+| `v4-multicurve-auction` | Doppler V4 multicurve auctions (base, scheduled, and decay variants) |
+| `doppler-hook-initializer` | Hook-enabled multicurve lifecycle with `DopplerHookInitializer` |
+| `proceeds-split-migration` | Migration-time proceeds splits (`ProceedsSplitter`, `TopUpDistributor`, V4 split migrator) |
+| `token-lifecycle` | Token creation, vesting, inflation, and factory selection |
+| `fee-architecture` | Fee collection and distribution across Airlock, hooks, and lockers |
+| `uniswap-fundamentals` | Doppler-focused Uniswap V3/V4 math and architecture concepts |
+| `rehype` | Rehype hook operations: buybacks, distributions, and owner-fee claims |
+| `verification` | On-chain verification and debugging with cast/viem/RPC/explorers |
 
 ## Usage
 
-Once installed, your agent will automatically discover these skills based on task context. You can also explicitly request a skill:
+Skills are auto-discovered by context, or you can request one explicitly:
 
+```text
+"Load v4-dynamic-auction and explain how epoch rebalancing decides tick movement"
 ```
-"Load the v4-dynamic-auction skill and explain how epoch rebalancing works"
-```
+
+## Notes
+
+- `v4-dynamic-auction` is the canonical V4 dynamic auction skill.
+- `v4-dutch-auction` is retained for backward compatibility.
+- Active guidance is V3/V4-focused unless explicitly requested otherwise.
 
 ## License
 

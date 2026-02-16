@@ -16,7 +16,7 @@ Abstract contract implementing MasterChef-style fee distribution.
                                 WAD
 ```
 
-[Source: FeesManager.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/base/FeesManager.sol) (lines 48-52)
+[Source: FeesManager.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/base/FeesManager.sol) (lines 48-52)
 
 ### State Variables
 
@@ -37,7 +37,7 @@ mapping(PoolId => mapping(address => uint256)) public getLastCumulatedFees1;
 mapping(PoolId => mapping(address => uint256)) public getShares;
 ```
 
-[Source: FeesManager.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/base/FeesManager.sol) (lines 57-69)
+[Source: FeesManager.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/base/FeesManager.sol) (lines 57-69)
 
 ---
 
@@ -59,7 +59,7 @@ function collectFees(PoolId poolId) external nonReentrant returns (uint128 fees0
 }
 ```
 
-[Source: FeesManager.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/base/FeesManager.sol) (lines 80-91)
+[Source: FeesManager.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/base/FeesManager.sol) (lines 80-91)
 
 ### 2. _releaseFees()
 
@@ -83,7 +83,7 @@ function _releaseFees(PoolId poolId, address beneficiary) internal {
 }
 ```
 
-[Source: FeesManager.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/base/FeesManager.sol) (lines 141-158)
+[Source: FeesManager.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/base/FeesManager.sol) (lines 141-158)
 
 ---
 
@@ -100,7 +100,7 @@ function _storeBeneficiaries(
 ) internal
 ```
 
-[Source: FeesManager.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/base/FeesManager.sol) (lines 125-134)
+[Source: FeesManager.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/base/FeesManager.sol) (lines 125-134)
 
 **Requirements** (from BeneficiaryData.sol):
 1. Addresses sorted ascending
@@ -122,7 +122,7 @@ function updateBeneficiary(PoolId poolId, address newBeneficiary) external {
 }
 ```
 
-[Source: FeesManager.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/base/FeesManager.sol) (lines 99-116)
+[Source: FeesManager.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/base/FeesManager.sol) (lines 99-116)
 
 ---
 
@@ -145,7 +145,7 @@ function distributeFees(uint256 tokenId) external;
 function releaseFees(uint256 tokenId) external;
 ```
 
-[Source: StreamableFeesLocker.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/StreamableFeesLocker.sol) (lines 161, 226)
+[Source: StreamableFeesLocker.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/StreamableFeesLocker.sol) (lines 161, 226)
 
 ### Position Data
 
@@ -159,7 +159,7 @@ struct PositionData {
 }
 ```
 
-[Source: StreamableFeesLocker.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/StreamableFeesLocker.sol) (lines 19-25)
+[Source: StreamableFeesLocker.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/StreamableFeesLocker.sol) (lines 19-25)
 
 ---
 
@@ -185,7 +185,7 @@ function lock(
 ) external onlyApprovedMigrator;
 ```
 
-[Source: StreamableFeesLockerV2.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/StreamableFeesLockerV2.sol) (lines 101-126)
+[Source: StreamableFeesLockerV2.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/StreamableFeesLockerV2.sol) (lines 101-126)
 
 ### Stream Data
 
@@ -201,7 +201,7 @@ struct StreamData {
 }
 ```
 
-[Source: StreamableFeesLockerV2.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/StreamableFeesLockerV2.sol) (lines 27-35)
+[Source: StreamableFeesLockerV2.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/StreamableFeesLockerV2.sol) (lines 27-35)
 
 ---
 
@@ -229,4 +229,4 @@ if (recipient != DEAD_ADDRESS) {
 }
 ```
 
-[Source: StreamableFeesLocker.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/StreamableFeesLocker.sol) (lines 144-146)
+[Source: StreamableFeesLocker.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/StreamableFeesLocker.sol) (lines 144-146)

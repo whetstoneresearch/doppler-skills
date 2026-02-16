@@ -14,7 +14,7 @@ for (uint256 i; i < curves.length; ++i) {
 }
 require(totalShares == WAD, InvalidTotalShares());
 ```
-[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/libraries/Multicurve.sol) (lines 95-99)
+[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/libraries/Multicurve.sol) (lines 95-99)
 
 **Impact**:
 - `0.999999999999999999e18` fails
@@ -36,7 +36,7 @@ if (!isToken0) {
         (-adjustedCurve.tickUpper, -adjustedCurve.tickLower);
 }
 ```
-[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/libraries/Multicurve.sol) (lines 74-76)
+[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/libraries/Multicurve.sol) (lines 74-76)
 
 **Impact**:
 - Curves defined for token0 will have positions mirrored when used for token1
@@ -55,7 +55,7 @@ PoolStatus status = initData.beneficiaries.length != 0
     ? PoolStatus.Locked
     : PoolStatus.Initialized;
 ```
-[Source: UniswapV4MulticurveInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV4MulticurveInitializer.sol) (lines 189-190)
+[Source: UniswapV4MulticurveInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV4MulticurveInitializer.sol) (lines 189-190)
 
 **Impact**:
 - `exitLiquidity()` will revert with `InvalidPoolStatus`
@@ -77,7 +77,7 @@ require(
     InvalidBeneficiaryAddress()
 );
 ```
-[Source: BeneficiaryData.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/types/BeneficiaryData.sol) (lines 58-61)
+[Source: BeneficiaryData.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/types/BeneficiaryData.sol) (lines 58-61)
 
 **Impact**: Unsorted beneficiaries cause initialization to revert.
 
@@ -100,7 +100,7 @@ if (protocolOwner == beneficiaries[i].addr) {
     );
 }
 ```
-[Source: BeneficiaryData.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/types/BeneficiaryData.sol) (lines 12, 70-74)
+[Source: BeneficiaryData.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/types/BeneficiaryData.sol) (lines 12, 70-74)
 
 **Impact**: If protocol owner's shares < 5%, initialization reverts.
 
@@ -122,7 +122,7 @@ Position[] memory positions = Multicurve.calculatePositions(
     !isToken0  // Note: !isToken0
 );
 ```
-[Source: UniswapV4MulticurveMigrator.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/migrators/UniswapV4MulticurveMigrator.sol) (lines 148-151)
+[Source: UniswapV4MulticurveMigrator.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/migrators/UniswapV4MulticurveMigrator.sol) (lines 148-151)
 
 **Impact**: Curve definitions behave differently through migrator vs initializer.
 
@@ -142,7 +142,7 @@ if (startingTick != farTick) {
 }
 // If equal, position is left uninitialized (zero liquidity)
 ```
-[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/libraries/Multicurve.sol) (lines 199-221)
+[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/libraries/Multicurve.sol) (lines 199-221)
 
 **Impact**: Some positions may have zero liquidity if tick ranges align poorly.
 
@@ -159,7 +159,7 @@ if (startingTick != farTick) {
 isTickAligned(adjustedCurve.tickLower, tickSpacing);
 isTickAligned(adjustedCurve.tickUpper, tickSpacing);
 ```
-[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/libraries/Multicurve.sol) (lines 84-85)
+[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/libraries/Multicurve.sol) (lines 84-85)
 
 **Impact**:
 - `tickLower = 101` with `tickSpacing = 10` will **revert** (not round to 100)
@@ -177,7 +177,7 @@ isTickAligned(adjustedCurve.tickUpper, tickSpacing);
 ```solidity
 positions[i].salt = bytes32(index * curve.numPositions + i);
 ```
-[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/libraries/Multicurve.sol) (lines 219)
+[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/libraries/Multicurve.sol) (lines 219)
 
 **Impact**:
 - Position identification depends on curve array order
@@ -194,7 +194,7 @@ positions[i].salt = bytes32(index * curve.numPositions + i);
 ```solidity
 require(asset == token0 ? tick >= farTick : tick <= farTick, CannotMigrateInsufficientTick(farTick, tick));
 ```
-[Source: UniswapV4MulticurveInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV4MulticurveInitializer.sol) (lines 241)
+[Source: UniswapV4MulticurveInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV4MulticurveInitializer.sol) (lines 241)
 
 **Impact**:
 - For asset = token0: tick must be >= farTick (price went UP in token1 terms)
@@ -224,7 +224,7 @@ require(asset == token0 ? tick >= farTick : tick <= farTick, CannotMigrateInsuff
 ```solidity
 uint256 amountPerPosition = curveSupply / numPositions;
 ```
-[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/libraries/Multicurve.sol) (lines 187)
+[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/libraries/Multicurve.sol) (lines 187)
 
 **Impact**:
 - `1000 tokens / 3 positions = 333 tokens each = 999 used, 1 dust`

@@ -14,7 +14,7 @@
 ## Phase 1: Initialization
 
 **Entry point**: `initialize()` called by Airlock
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 95-153)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 95-153)
 
 ### Step-by-step Flow
 
@@ -24,7 +24,7 @@ InitData memory initData = abi.decode(data, (InitData));
 require(maxShareToBeSold <= WAD, MaxShareToBeSoldExceeded(...));
 require(tickLower < tickUpper, InvalidTickRangeMisordered(...));
 ```
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 102-107)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 102-107)
 
 #### 2. Get Tick Spacing from Factory
 ```solidity
@@ -33,7 +33,7 @@ if (tickSpacing == 0) revert InvalidFee(fee);
 checkPoolParams(tickLower, tickSpacing);
 checkPoolParams(tickUpper, tickSpacing);
 ```
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 109-113)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 109-113)
 
 #### 3. Determine Token Ordering
 ```solidity
@@ -42,14 +42,14 @@ checkPoolParams(tickUpper, tickSpacing);
     : (numeraire, asset);
 ```
 Uniswap V3 always stores `token0 < token1`. The `asset` (token being sold) may be either.
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 115)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 115)
 
 #### 4. Calculate Token Split
 ```solidity
 uint256 numTokensToSell = FullMath.mulDiv(totalTokensOnBondingCurve, maxShareToBeSold, WAD);
 uint256 numTokensToBond = totalTokensOnBondingCurve - numTokensToSell;
 ```
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 117-118)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 117-118)
 
 #### 5. Get or Create Pool
 ```solidity
@@ -64,7 +64,7 @@ try IUniswapV3Pool(pool).initialize(sqrtPriceX96) { } catch { }
 ```
 - If pool exists, reuses it (but checks not already initialized by Doppler)
 - Initial price set at the "close tick" (where auction starts)
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 120-130)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 120-130)
 
 #### 6. Calculate Position Distribution
 ```solidity
@@ -75,14 +75,14 @@ lbpPositions[numPositions] =
     calculateLpTail(numPositions, tickLower, tickUpper, isToken0, reserves, numTokensToBond, tickSpacing);
 ```
 Creates `numPositions + 1` LP positions (bonding curve + tail).
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 144-148)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 144-148)
 
 #### 7. Mint All Positions
 ```solidity
 mintPositions(asset, numeraire, fee, pool, lbpPositions, numPositions);
 ```
 Iterates through all positions and calls `pool.mint()` for each.
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 150, 363-381)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 150, 363-381)
 
 ## Phase 2: Active (Static)
 
@@ -105,12 +105,12 @@ function collectFees(address pool) external returns (uint256, uint256)
 4. Distributes fees to beneficiaries proportionally
 5. Last beneficiary receives any rounding dust
 
-[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/LockableUniswapV3Initializer.sol) (lines 263-298)
+[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/LockableUniswapV3Initializer.sol) (lines 263-298)
 
 ## Phase 3: Exit
 
 **Entry point**: `exitLiquidity()` called by Airlock
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 156-214)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 156-214)
 
 ### Exit Conditions
 
@@ -127,7 +127,7 @@ require(asset == token0 ? tick >= farTick : tick <= farTick,
 | token0 | Price increases | `tick >= tickUpper` |
 | token1 | Price decreases | `tick <= tickLower` |
 
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 182-183)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 182-183)
 
 ### Exit Flow
 
@@ -160,7 +160,7 @@ require(asset == token0 ? tick >= farTick : tick <= farTick,
    ERC20(token1).safeTransfer(msg.sender, balance1);
    ```
 
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 169-213)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 169-213)
 
 ## Lockable State Transitions
 
@@ -179,12 +179,12 @@ getState[pool].status = beneficiaries.length != 0
     ? PoolStatus.Locked
     : PoolStatus.Initialized;
 ```
-[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/LockableUniswapV3Initializer.sol) (lines 207)
+[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/LockableUniswapV3Initializer.sol) (lines 207)
 
 ```solidity
 require(getState[pool].status == PoolStatus.Initialized, PoolAlreadyExited());
 ```
-[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/LockableUniswapV3Initializer.sol) (lines 232)
+[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/LockableUniswapV3Initializer.sol) (lines 232)
 
 ## Callback Mechanism
 
@@ -209,4 +209,4 @@ function uniswapV3MintCallback(uint256 amount0Owed, uint256 amount1Owed, bytes c
 - Tokens are pulled from the Airlock contract
 - Transfers whichever amount is non-zero (asset is always one side)
 
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 216-223)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 216-223)
