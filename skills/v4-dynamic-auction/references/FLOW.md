@@ -1,4 +1,4 @@
-# V4 Dutch Auction Lifecycle
+# V4 Dynamic Auction Lifecycle
 
 ## Overview
 
@@ -106,7 +106,7 @@ beforeSwap()
 
 2. **Compute tick accumulator delta** (lines 621-675):
    - Check if undersold or oversold
-   - Apply appropriate Dutch auction mode
+   - Apply appropriate dynamic auction mode
    - Handle multiple skipped epochs
 
 3. **Update tick accumulator** (lines 679-683):
@@ -263,7 +263,7 @@ Hooks.Permissions({
 
 ## Comparison with V3 Lifecycle
 
-| Phase | V3 Static | V4 Dutch |
+| Phase | V3 Static | V4 Dynamic |
 |-------|-----------|------------|
 | Init | Mint all positions at once | Place initial slugs |
 | Active | No changes | Rebalance every epoch |

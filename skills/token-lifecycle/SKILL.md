@@ -51,5 +51,5 @@ metadata:
 
 ## Related skills
 - [v3-static-auction](../v3-static-auction/SKILL.md)
-- [v4-dutch-auction](../v4-dutch-auction/SKILL.md)
+- [v4-dynamic-auction](../v4-dynamic-auction/SKILL.md)
 - [v4-multicurve-auction](../v4-multicurve-auction/SKILL.md)

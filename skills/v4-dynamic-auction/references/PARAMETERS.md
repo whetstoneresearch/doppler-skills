@@ -1,4 +1,4 @@
-# V4 Dutch Auction Parameters
+# V4 Dynamic Auction Parameters
 
 ## Constructor Parameters
 
@@ -108,7 +108,7 @@ Unix timestamps for sale start and end.
 
 ### `startingTick` / `endingTick` (int24)
 
-Initial and final ticks for the Dutch auction.
+Initial and final ticks for the dynamic auction.
 
 **Direction depends on isToken0**:
 - If `isToken0`: `startingTick > endingTick` (price decreases in asset terms)
@@ -177,7 +177,7 @@ struct State {
     int256 tickAccumulator;        // Cumulative tick adjustment (scaled by 1e18)
     uint256 totalTokensSold;       // Total asset tokens sold
     uint256 totalProceeds;         // Total numeraire earned (excluding fees)
-    uint256 totalTokensSoldLastEpoch; // Snapshot for Dutch auction calc
+    uint256 totalTokensSoldLastEpoch; // Snapshot for dynamic auction calc
     BalanceDelta feesAccrued;      // Accumulated LP + protocol fees
 }
 ```
@@ -246,18 +246,18 @@ struct SlugData {
 
 ## Note: Far Tick vs Ending Tick
 
-V4 Dutch auctions do **not** use a `farTick` parameter like V3 static or V4 multicurve auctions.
+V4 Dynamic auctions do **not** use a `farTick` parameter like V3 static or V4 multicurve auctions.
 
 **Key differences**:
 
-| Concept | V3/Multicurve | V4 Dutch |
+| Concept | V3/Multicurve | V4 Dynamic |
 |---------|---------------|------------|
 | Exit trigger | `farTick` reached | Proceeds thresholds |
 | Price target | Tick-based | `endingTick` (for calculation only) |
 | Migration | Tick comparison | `minimumProceeds`/`maximumProceeds` |
 
 **Why no farTick**:
-- V4 Dutch auctions exit based on proceeds collected, not tick position
+- V4 Dynamic auctions exit based on proceeds collected, not tick position
 - `endingTick` defines the price range for calculations, not an exit condition
 - Early exit triggers when `totalProceeds >= maximumProceeds`
 - Normal exit triggers at `endingTime` if `totalProceeds >= minimumProceeds`

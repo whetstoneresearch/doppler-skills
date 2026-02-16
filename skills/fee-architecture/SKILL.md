@@ -14,9 +14,10 @@ metadata:
 - You need to explain where fees are tracked and who can claim them
 - You are debugging protocol/integrator/beneficiary payout outcomes
 - You are changing LP fee configuration or hook-driven fee behavior
+- You are validating multicurve fee decay configuration (`startFee`, `fee`, `durationSeconds`, `startingTime`)
 
 ## Prerequisites
-- Identify sale path (V3 static, V4 Dutch, V4 multicurve, or DopplerHookInitializer path)
+- Identify sale path (V3 static, V4 dynamic, V4 multicurve, or DopplerHookInitializer path)
 - Identify whether pool is locked (beneficiaries enabled) or migrable
 
 ## Core workflow
@@ -52,6 +53,6 @@ metadata:
 
 ## Related skills
 - [rehype](../rehype/SKILL.md)
-- [v4-dutch-auction](../v4-dutch-auction/SKILL.md)
+- [v4-dynamic-auction](../v4-dynamic-auction/SKILL.md)
 - [v4-multicurve-auction](../v4-multicurve-auction/SKILL.md)
 - [proceeds-split-migration](../proceeds-split-migration/SKILL.md)

@@ -1,4 +1,4 @@
-# V4 Dutch Auction Formulas
+# V4 Dynamic Auction Formulas
 
 ## Epoch Calculation
 

@@ -29,7 +29,7 @@ This skill is intentionally V3/V4-centric for current Doppler development.
 | Doppler skill | Uniswap concepts used |
 |---|---|
 | `v3-static-auction` | V3 tick spacing, range liquidity, far-tick exits |
-| `v4-dutch-auction` | V4 hooks, epoch rebalancing, dynamic liquidity placement |
+| `v4-dynamic-auction` | V4 hooks, epoch rebalancing, dynamic liquidity placement |
 | `v4-multicurve-auction` | V4 concentrated ranges, multicurve allocation |
 | `doppler-hook-initializer` | V4 hook permissions and callback integration |
 

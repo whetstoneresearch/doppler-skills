@@ -53,7 +53,7 @@ metadata:
 - [VARIANTS.md](references/VARIANTS.md)
 
 ## Related skills
-- [v4-dutch-auction](../v4-dutch-auction/SKILL.md)
+- [v4-dynamic-auction](../v4-dynamic-auction/SKILL.md)
 - [doppler-hook-initializer](../doppler-hook-initializer/SKILL.md)
 - [fee-architecture](../fee-architecture/SKILL.md)
 - [verification](../verification/SKILL.md)

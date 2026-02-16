@@ -1,6 +1,6 @@
-# V4 Dutch Auction Gotchas
+# V4 Dynamic Auction Gotchas
 
-Critical edge cases and common pitfalls when working with V4 Dutch auctions.
+Critical edge cases and common pitfalls when working with V4 Dynamic auctions.
 
 ## 1. Token Ordering (Same as V3)
 
@@ -46,7 +46,7 @@ if (_getCurrentEpoch() <= uint256(state.lastEpoch)) {
 ```solidity
 while (epochsPassed > 1) {
     epochsPassed--;
-    // Apply Dutch auction for each missed epoch
+    // Apply dynamic auction for each missed epoch
 }
 ```
 [Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 667-675)
@@ -268,7 +268,7 @@ if (slug.liquidity == 0) {
 
 ## 14. Comparison with V3 Gotchas
 
-| Gotcha | V3 Static | V4 Dutch |
+| Gotcha | V3 Static | V4 Dynamic |
 |--------|-----------|------------|
 | Token ordering | Same issue | Same issue |
 | Exit condition | Must reach far tick | Proceeds thresholds |

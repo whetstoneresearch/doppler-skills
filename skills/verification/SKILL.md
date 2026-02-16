@@ -1,6 +1,6 @@
 ---
 name: verification
-description: Verify on-chain Doppler behavior with cast, viem, RPC, and explorers for Dutch auctions, multicurve launches, hook initializer state, and migration flows.
+description: Verify on-chain Doppler behavior with cast, viem, RPC, and explorers for dynamic auctions, multicurve launches, hook initializer state, and migration flows.
 metadata:
   author: doppler
   version: "2.0"
@@ -21,7 +21,7 @@ metadata:
 
 ## Core workflow
 1. Identify module path:
-   - Dutch (`Doppler`)
+   - Dynamic (`Doppler`)
    - Multicurve (base/scheduled/decay)
    - Hook-initializer (`DopplerHookInitializer` + hooks)
    - Proceeds split migration (`UniswapV4MigratorSplit`, `TopUpDistributor`)
@@ -42,7 +42,7 @@ metadata:
 - [EXPLORERS.md](references/EXPLORERS.md)
 
 ## Related skills
-- [v4-dutch-auction](../v4-dutch-auction/SKILL.md)
+- [v4-dynamic-auction](../v4-dynamic-auction/SKILL.md)
 - [v4-multicurve-auction](../v4-multicurve-auction/SKILL.md)
 - [doppler-hook-initializer](../doppler-hook-initializer/SKILL.md)
 - [proceeds-split-migration](../proceeds-split-migration/SKILL.md)
