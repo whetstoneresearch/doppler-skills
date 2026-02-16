@@ -13,7 +13,7 @@ struct Curve {
 }
 ```
 
-[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/libraries/Multicurve.sol) (lines 29-34)
+[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/libraries/Multicurve.sol) (lines 29-34)
 
 ### Curve Fields
 
@@ -37,7 +37,7 @@ struct InitData {
 }
 ```
 
-[Source: UniswapV4MulticurveInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV4MulticurveInitializer.sol) (lines 49-54)
+[Source: UniswapV4MulticurveInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV4MulticurveInitializer.sol) (lines 49-54)
 
 ### InitData Fields
 
@@ -61,7 +61,7 @@ enum PoolStatus {
 }
 ```
 
-[Source: UniswapV4MulticurveInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV4MulticurveInitializer.sol) (lines 57-62)
+[Source: UniswapV4MulticurveInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV4MulticurveInitializer.sol) (lines 57-62)
 
 ### Status Transitions
 
@@ -85,7 +85,7 @@ struct PoolState {
 }
 ```
 
-[Source: UniswapV4MulticurveInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV4MulticurveInitializer.sol) (lines 73-80)
+[Source: UniswapV4MulticurveInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV4MulticurveInitializer.sol) (lines 73-80)
 
 ## BeneficiaryData Struct
 
@@ -98,7 +98,7 @@ struct BeneficiaryData {
 }
 ```
 
-[Source: BeneficiaryData.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/types/BeneficiaryData.sol) (lines 17-20)
+[Source: BeneficiaryData.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/types/BeneficiaryData.sol) (lines 17-20)
 
 ### Beneficiary Constraints
 
@@ -106,7 +106,7 @@ struct BeneficiaryData {
 2. **Protocol owner must have >= 5%** (`MIN_PROTOCOL_OWNER_SHARES = 0.05e18`)
 3. **Shares must sum to WAD** (1e18)
 
-[Source: BeneficiaryData.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/types/BeneficiaryData.sol) (lines 43-79)
+[Source: BeneficiaryData.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/types/BeneficiaryData.sol) (lines 43-79)
 
 ## Share Constraints
 
@@ -120,7 +120,7 @@ for (uint256 i; i < curves.length; ++i) {
 require(totalShares == WAD, InvalidTotalShares());
 ```
 
-[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/libraries/Multicurve.sol) (lines 95-99)
+[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/libraries/Multicurve.sol) (lines 95-99)
 
 No tolerance - exact equality required.
 
@@ -138,7 +138,7 @@ struct AssetData {
 }
 ```
 
-[Source: UniswapV4MulticurveMigrator.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/migrators/UniswapV4MulticurveMigrator.sol) (lines 30-36)
+[Source: UniswapV4MulticurveMigrator.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/migrators/UniswapV4MulticurveMigrator.sol) (lines 30-36)
 
 ## Constants
 
@@ -147,7 +147,7 @@ struct AssetData {
 | `WAD` | `1e18` | Precision multiplier for shares |
 | `MIN_PROTOCOL_OWNER_SHARES` | `0.05e18` | Minimum 5% for protocol owner |
 
-[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/libraries/Multicurve.sol) (lines 16), [Source: BeneficiaryData.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/types/BeneficiaryData.sol) (lines 12)
+[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/libraries/Multicurve.sol) (lines 16), [Source: BeneficiaryData.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/types/BeneficiaryData.sol) (lines 12)
 
 ## Comparison with Other Auction Types
 
@@ -175,7 +175,7 @@ int24 farTick;  // Farthest tick to allow exiting liquidity
 int24 farTick;  // Stored for migration check
 ```
 
-[Source: DopplerHookInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/DopplerHookInitializer.sol) (lines 118,129,167)
+[Source: DopplerHookInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/DopplerHookInitializer.sol) (lines 118,129,167)
 
 ### Direction Logic
 
@@ -197,7 +197,7 @@ farTick = -farTick;
 require(farTick <= startTick && farTick >= lowerTickBoundary, UnreachableFarTick());
 ```
 
-[Source: DopplerHookInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/DopplerHookInitializer.sol) (lines 287-294)
+[Source: DopplerHookInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/DopplerHookInitializer.sol) (lines 287-294)
 
 ### Migration Check
 
@@ -211,7 +211,7 @@ require(
 );
 ```
 
-[Source: DopplerHookInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/DopplerHookInitializer.sol) (lines 488-492)
+[Source: DopplerHookInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/DopplerHookInitializer.sol) (lines 488-492)
 
 ### Migrable vs Locked Pools
 

@@ -1,4 +1,4 @@
-# V4 Dynamic Auction Lifecycle
+# V4 Dutch Auction Lifecycle
 
 ## Overview
 
@@ -17,7 +17,7 @@
 
 ### Step 1: beforeInitialize
 **Entry point**: Pool manager calls `_beforeInitialize()`
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 344-358)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 344-358)
 
 ```solidity
 function _beforeInitialize(address, PoolKey calldata key, uint160) internal override returns (bytes4) {
@@ -37,7 +37,7 @@ function _beforeInitialize(address, PoolKey calldata key, uint160) internal over
 
 ### Step 2: afterInitialize
 **Entry point**: Pool manager calls `_afterInitialize()`
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 365-374)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 365-374)
 
 ```solidity
 function _afterInitialize(
@@ -58,7 +58,7 @@ This triggers `_unlockCallback` which places initial liquidity slugs.
 
 ### beforeSwap Hook
 **Entry point**: Called before every swap
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 394-483)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 394-483)
 
 #### Decision Flow:
 
@@ -93,7 +93,7 @@ beforeSwap()
 
 ### Rebalance Logic
 **Entry point**: `_rebalance(key)` called from beforeSwap
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 604-777)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 604-777)
 
 #### Step-by-step:
 
@@ -106,7 +106,7 @@ beforeSwap()
 
 2. **Compute tick accumulator delta** (lines 621-675):
    - Check if undersold or oversold
-   - Apply appropriate dynamic auction mode
+   - Apply appropriate Dutch auction mode
    - Handle multiple skipped epochs
 
 3. **Update tick accumulator** (lines 679-683):
@@ -149,7 +149,7 @@ beforeSwap()
 
 ### afterSwap Hook
 **Entry point**: Called after every swap
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 493-583)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 493-583)
 
 #### Responsibilities:
 
@@ -184,7 +184,7 @@ beforeSwap()
 
 ### Path A: Early Exit
 **Trigger**: `totalProceeds >= maximumProceeds` during afterSwap
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 574-577)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 574-577)
 
 **Behavior**:
 - `earlyExit = true` is set
@@ -200,7 +200,7 @@ beforeSwap()
 
 ### Path C: Insufficient Proceeds (Refund Phase)
 **Trigger**: `endingTime` reached AND `totalProceeds < minimumProceeds`
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 412-467)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 412-467)
 
 **Behavior**:
 1. `insufficientProceeds = true` is set
@@ -212,7 +212,7 @@ beforeSwap()
 
 ### Migration
 **Entry point**: `migrate(recipient)` called by initializer (Airlock)
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 1373-1421)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 1373-1421)
 
 ```solidity
 function migrate(address recipient) external returns (...) {
@@ -259,11 +259,11 @@ Hooks.Permissions({
     afterRemoveLiquidityReturnDelta: false
 })
 ```
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 1342-1358)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 1342-1358)
 
 ## Comparison with V3 Lifecycle
 
-| Phase | V3 Static | V4 Dynamic |
+| Phase | V3 Static | V4 Dutch |
 |-------|-----------|------------|
 | Init | Mint all positions at once | Place initial slugs |
 | Active | No changes | Rebalance every epoch |

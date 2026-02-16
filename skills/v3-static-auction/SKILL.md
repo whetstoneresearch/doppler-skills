@@ -1,104 +1,52 @@
 ---
 name: v3-static-auction
-description: Reference for Doppler V3 static auctions. Use when working with UniswapV3Initializer, LockableUniswapV3Initializer, or any V3-based token launches. Covers initialization parameters, lifecycle, tick math, and common pitfalls.
+description: Reference for Doppler V3 static auctions using `UniswapV3Initializer` or `LockableUniswapV3Initializer`, including parameters, lifecycle, and far-tick exits.
 metadata:
   author: doppler
-  version: "1.0"
+  version: "2.0"
 ---
 
-> **Source References**: Code citations link to raw GitHub files pinned to commit `988dab4`. To fetch specific lines: `curl -s "<url>" | sed -n 'START,ENDp'`
+> **Source References**: Code citations link to raw GitHub files pinned to commit `46bad16d`.
 
 # V3 Static Auction
 
-A V3 static auction creates a **fixed bonding curve** on Uniswap V3. Unlike the V4 dynamic auction, positions are minted once at initialization and never rebalanced.
+## When to use
+- Launches use `UniswapV3Initializer` or `LockableUniswapV3Initializer`
+- You need fixed-curve V3 behavior (no epoch rebalance)
+- You are debugging far-tick exit gating or beneficiary fee collection in lockable pools
 
-## Key Contracts
+## Prerequisites
+- Choose supported V3 fee tier and corresponding tick spacing
+- Confirm tick bounds and token ordering implications
 
-| Contract | Path | Purpose |
-|----------|------|---------|
-| UniswapV3Initializer | `src/initializers/UniswapV3Initializer.sol` | Standard V3 static auction |
-| LockableUniswapV3Initializer | `src/initializers/LockableUniswapV3Initializer.sol` | V3 with fee locking and beneficiaries |
+## Core workflow
+1. Validate `InitData` (ticks, fee, position count, sale share).
+2. Initialize positions once through Airlock.
+3. Track auction progression passively via market swaps.
+4. Exit when far tick is reached (`exitLiquidity`) for migrable pools.
+5. For lockable path, use beneficiary fee collection instead of migration exits.
 
-## Quick Facts
+## Quick facts
+| Item | Detail |
+|---|---|
+| Contracts | `src/initializers/UniswapV3Initializer.sol`, `src/initializers/LockableUniswapV3Initializer.sol` |
+| Rebalancing | None |
+| Exit requirement | Price reaches far tick |
+| Lockable add-ons | Beneficiaries, pool status gating, fee collection |
 
-| Fact | Value | Source |
-|------|-------|--------|
-| Precision constant | `WAD = 1e18` | `UniswapV3Initializer.sol:42` |
-| Max share to sell | 100% (`1e18`) | `UniswapV3Initializer.sol:106` |
-| Protocol owner min share | 5% (`WAD / 20`) | `LockableUniswapV3Initializer.sol:476` |
-| Distribution type | Linear (equal tokens per position) | `UniswapV3Initializer.sol:278-282` |
+## Failure modes
+- Tick bounds not aligned with spacing
+- Misinterpreting far-tick direction due to token ordering
+- Treating lockable pools as migrable
+- Incorrect beneficiary share configuration
 
-## Parameters Reference
+## References
+- [PARAMETERS.md](references/PARAMETERS.md)
+- [FLOW.md](references/FLOW.md)
+- [FORMULAS.md](references/FORMULAS.md)
+- [GOTCHAS.md](references/GOTCHAS.md)
 
-| Parameter | Type | Constraints | Description |
-|-----------|------|-------------|-------------|
-| `fee` | `uint24` | 500, 3000, or 10000 | V3 fee tier |
-| `tickLower` | `int24` | Must align to tick spacing | Bonding curve start |
-| `tickUpper` | `int24` | Must be > tickLower | Bonding curve end |
-| `numPositions` | `uint16` | > 0 | Number of LP positions |
-| `maxShareToBeSold` | `uint256` | 0 to 1e18 | % of tokens for sale |
-| `beneficiaries` | `BeneficiaryData[]` | Lockable only | Fee recipients |
-
-[Detailed parameters](references/PARAMETERS.md)
-
-## Tick Spacing by Fee
-
-| Fee | Basis Points | Tick Spacing |
-|-----|--------------|--------------|
-| 500 | 0.05% | 10 |
-| 3000 | 0.30% | 60 |
-| 10000 | 1.00% | 200 |
-
-[Source: Retrieved via `factory.feeAmountTickSpacing(fee)` at `UniswapV3Initializer.sol:109`]
-
-## Lifecycle
-
-1. **Initialize** - Airlock calls `initialize()`, positions are minted
-2. **Active** - No rebalancing; positions remain static
-3. **Exit** - Price must reach far tick, then `exitLiquidity()` burns positions
-
-[Detailed flow](references/FLOW.md)
-
-## Exit Requirements
-
-```
-Token0 selling: tick >= tickUpper (price increased)
-Token1 selling: tick <= tickLower (price decreased)
-```
-
-**Critical**: Price MUST reach the far tick. No early exit is possible.
-
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 182-183)
-
-## Static vs Dynamic
-
-| Aspect | V3 Static | V4 Dynamic |
-|--------|-----------|------------|
-| Rebalancing | None | Every epoch via `beforeSwap` |
-| Position count | Fixed at init | Continuously adjusted |
-| Price discovery | Passive (swaps move price) | Active (tick accumulator) |
-| Contract | UniswapV3Initializer | Doppler.sol |
-
-## Common Tasks
-
-- **Understanding the math**: See [FORMULAS.md](references/FORMULAS.md)
-- **Avoiding pitfalls**: See [GOTCHAS.md](references/GOTCHAS.md)
-- **Setting up beneficiaries**: See [PARAMETERS.md](references/PARAMETERS.md)
-
-## Lockable vs Standard
-
-The `LockableUniswapV3Initializer` adds:
-
-1. **PoolStatus enum**: `Uninitialized → Initialized → Locked → Exited`
-2. **Beneficiaries**: Fee distribution to multiple addresses
-3. **collectFees()**: Withdraw accumulated fees while locked
-4. **Protocol owner requirement**: Must receive at least 5%
-
-[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/LockableUniswapV3Initializer.sol) (lines 96-101, 263-298, 461-486)
-
-## Related Skills
-
-- [fee-architecture](../fee-architecture/SKILL.md) - Fee collection and beneficiary distribution
-- [token-lifecycle](../token-lifecycle/SKILL.md) - Vesting and inflation mechanics
-- [v4-multicurve-auction](../v4-multicurve-auction/SKILL.md) - V4 multicurve with farTick parameter
-- [uniswap-fundamentals](../uniswap-fundamentals/SKILL.md) - Tick math and V3/V4 comparison
+## Related skills
+- [token-lifecycle](../token-lifecycle/SKILL.md)
+- [fee-architecture](../fee-architecture/SKILL.md)
+- [verification](../verification/SKILL.md)

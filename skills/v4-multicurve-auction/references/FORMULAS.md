@@ -10,7 +10,7 @@ uint256 curveSupply = FullMath.mulDiv(supply, curves[index].shares, WAD);
 
 **Formula**: `curveSupply = totalSupply * shares / 1e18`
 
-[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/libraries/Multicurve.sol) (lines 143-145)
+[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/libraries/Multicurve.sol) (lines 143-145)
 
 **Example**: If curve has `0.3e18` shares and `1000` total tokens:
 - `curveSupply = 1000 * 0.3e18 / 1e18 = 300 tokens`
@@ -27,7 +27,7 @@ for (uint256 i; i < curves.length; ++i) {
 require(totalShares == WAD, InvalidTotalShares());
 ```
 
-[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/libraries/Multicurve.sol) (lines 95-99)
+[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/libraries/Multicurve.sol) (lines 95-99)
 
 **No tolerance** - exact equality to `1e18` required.
 
@@ -48,7 +48,7 @@ function adjustCurves(
 )
 ```
 
-[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/libraries/Multicurve.sol) (lines 46-100)
+[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/libraries/Multicurve.sol) (lines 46-100)
 
 ### Tick Flipping for Token1
 
@@ -61,7 +61,7 @@ if (!isToken0) {
 }
 ```
 
-[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/libraries/Multicurve.sol) (lines 74-76)
+[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/libraries/Multicurve.sol) (lines 74-76)
 
 **Formula**: `newLower = -oldUpper`, `newUpper = -oldLower`
 
@@ -83,7 +83,7 @@ if (isToken0) {
 }
 ```
 
-[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/libraries/Multicurve.sol) (lines 81-88)
+[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/libraries/Multicurve.sol) (lines 81-88)
 
 ## Log-Normal Distribution
 
@@ -100,7 +100,7 @@ function calculateLogNormalDistribution(
 ) internal pure returns (Position[] memory positions)
 ```
 
-[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/libraries/Multicurve.sol) (lines 173-225)
+[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/libraries/Multicurve.sol) (lines 173-225)
 
 ### Position Tick Calculation
 
@@ -115,7 +115,7 @@ int24 startingTick = isToken0
 startingTick = alignTick(isToken0, startingTick, tickSpacing);
 ```
 
-[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/libraries/Multicurve.sol) (lines 192-197)
+[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/libraries/Multicurve.sol) (lines 192-197)
 
 ### Liquidity Calculation
 
@@ -129,7 +129,7 @@ liquidity = isToken0
     : LiquidityAmounts.getLiquidityForAmount1(farSqrtPriceX96, startingSqrtPriceX96, amountPerPosition - 1);
 ```
 
-[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/libraries/Multicurve.sol) (lines 187, 206-212)
+[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/libraries/Multicurve.sol) (lines 187, 206-212)
 
 **Note**: `amountPerPosition - 1` is used to avoid rounding errors.
 
@@ -141,7 +141,7 @@ Each position has a unique salt for identification:
 positions[i].salt = bytes32(index * curve.numPositions + i);
 ```
 
-[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/libraries/Multicurve.sol) (lines 219)
+[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/libraries/Multicurve.sol) (lines 219)
 
 **Formula**: `salt = curveIndex * numPositionsInCurve + positionIndex`
 
@@ -186,7 +186,7 @@ if (otherCurrencySupply > 0) {
 }
 ```
 
-[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/libraries/Multicurve.sol) (lines 146-156)
+[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/libraries/Multicurve.sol) (lines 146-156)
 
 **Key insight**: The "head position" uses `!isToken0` (inverse token logic), creating a tail-like position for the non-selling token.
 
@@ -203,7 +203,7 @@ function calculateLpTail(
 ) pure returns (Position memory lpTail)
 ```
 
-[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/libraries/Multicurve.sol) (lines 238-245)
+[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/libraries/Multicurve.sol) (lines 238-245)
 
 ### Tail Tick and Position Range
 
@@ -214,7 +214,7 @@ int24 posTickLower = isToken0 ? tailTick + tickSpacing : alignTick(isToken0, Tic
 int24 posTickUpper = isToken0 ? alignTick(isToken0, TickMath.MAX_TICK, tickSpacing) : tailTick - tickSpacing;
 ```
 
-[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/libraries/Multicurve.sol) (lines 246-250)
+[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/libraries/Multicurve.sol) (lines 246-250)
 
 **Key difference from V3**: Multicurve applies `±tickSpacing` offset from the far tick:
 
@@ -235,7 +235,7 @@ uint128 lpTailLiquidity = LiquidityAmounts.getLiquidityForAmounts(
 );
 ```
 
-[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/libraries/Multicurve.sol) (lines 252-258)
+[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/libraries/Multicurve.sol) (lines 252-258)
 
 **Note**: `supply - 1` provides rounding protection, ensuring the tail position can always be minted.
 
@@ -260,7 +260,7 @@ curve.tickLower = (curve.tickLower / tickSpacing) * tickSpacing;
 curve.tickUpper = (curve.tickUpper / tickSpacing) * tickSpacing;
 ```
 
-[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/libraries/Multicurve.sol) (lines 62-65)
+[Source: Multicurve.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/libraries/Multicurve.sol) (lines 62-65)
 
 ## Migrator Offset Calculation
 
@@ -273,7 +273,7 @@ int24 offset = TickMath.getTickAtSqrtPrice(sqrtPriceX96);
 );
 ```
 
-[Source: UniswapV4MulticurveMigrator.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/migrators/UniswapV4MulticurveMigrator.sol) (lines 147-148)
+[Source: UniswapV4MulticurveMigrator.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/migrators/UniswapV4MulticurveMigrator.sol) (lines 147-148)
 
 **Note**: The migrator passes `!isToken0` to `adjustCurves`.
 

@@ -1,7 +1,7 @@
 # Configuration Guide
 
 ## Initialization Data (Pool Creation)
-- [Source: RehypeDopplerHook.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/dopplerHooks/RehypeDopplerHook.sol) (`_onInitialization` function)
+- [Source: RehypeDopplerHook.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/dopplerHooks/RehypeDopplerHook.sol) (`_onInitialization` function)
 - Calldata layout (`abi.encode(...)`):
   1. `address numeraire` – token used for pricing buybacks when the asset is token0/1
   2. `address buybackDst` – recipient for both buybacks and beneficiary fee withdrawals

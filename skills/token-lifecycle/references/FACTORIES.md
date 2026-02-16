@@ -27,7 +27,7 @@ function create(
 ) external onlyAirlock returns (address)
 ```
 
-[Source: TokenFactory.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/tokens/TokenFactory.sol) (lines 20-51)
+[Source: TokenFactory.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/tokens/TokenFactory.sol) (lines 20-51)
 
 ### Token Data Encoding
 
@@ -65,7 +65,7 @@ function create(
 ) external onlyAirlock returns (address asset)
 ```
 
-[Source: CloneERC20Factory.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/tokens/CloneERC20Factory.sol) (lines 44-75)
+[Source: CloneERC20Factory.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/tokens/CloneERC20Factory.sol) (lines 44-75)
 
 ### How It Works
 
@@ -86,7 +86,7 @@ function create(...) {
 }
 ```
 
-[Source: CloneERC20Factory.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/tokens/CloneERC20Factory.sol) (lines 20-24, 61-74)
+[Source: CloneERC20Factory.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/tokens/CloneERC20Factory.sol) (lines 20-24, 61-74)
 
 ### Features
 - Minimal proxy (ERC1167) pattern
@@ -124,7 +124,7 @@ modifier onlyAirlock() {
 }
 ```
 
-[Source: ImmutableAirlock.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/base/ImmutableAirlock.sol)
+[Source: ImmutableAirlock.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/base/ImmutableAirlock.sol)
 
 **Flow**: Airlock -> TokenFactory -> Token deployment
 
@@ -179,7 +179,7 @@ Alternative factory with 80% vesting cap (like CloneERC20 but with voting):
 | Max per address | 20% | 80% |
 | Max total | 20% | 80% |
 
-[Source: DERC2080.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/tokens/DERC2080.sol), [Source: TokenFactory80.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/tokens/TokenFactory80.sol)
+[Source: DERC2080.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/tokens/DERC2080.sol), [Source: TokenFactory80.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/tokens/TokenFactory80.sol)
 
 ### CloneERC20Votes / CloneERC20VotesFactory
 
@@ -189,4 +189,4 @@ Cloneable tokens WITH voting rights:
 contract CloneERC20Votes is ERC20, ERC20Votes, Initializable, Ownable
 ```
 
-[Source: CloneERC20Votes.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/tokens/CloneERC20Votes.sol)
+[Source: CloneERC20Votes.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/tokens/CloneERC20Votes.sol)

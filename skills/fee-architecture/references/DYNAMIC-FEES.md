@@ -34,7 +34,7 @@ PoolKey memory poolKey = PoolKey({
 });
 ```
 
-[Source: UniswapV4Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV4Initializer.sol) (lines 108)
+[Source: UniswapV4Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV4Initializer.sol) (lines 108)
 
 ---
 
@@ -64,7 +64,7 @@ The hook or authorized contract calls PoolManager:
 poolManager.updateDynamicLPFee(poolKey, newLpFee);
 ```
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 371)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 371)
 
 ### In DopplerHookInitializer
 
@@ -76,7 +76,7 @@ function updateDynamicLPFee(address asset, uint24 lpFee) external {
 }
 ```
 
-[Source: DopplerHookInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/DopplerHookInitializer.sol) (lines 425-430)
+[Source: DopplerHookInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/DopplerHookInitializer.sol) (lines 425-430)
 
 ---
 
@@ -100,7 +100,7 @@ For dynamic fee pools, an initial fee is set after initialization:
 poolManager.updateDynamicLPFee(key, initialLpFee);
 ```
 
-[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/Doppler.sol) (lines 371)
+[Source: Doppler.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/Doppler.sol) (lines 371)
 
 This sets the starting fee before any swaps occur.
 
@@ -146,7 +146,7 @@ PoolKey memory poolKey = PoolKey({
 });
 ```
 
-[Source: DopplerHookInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/DopplerHookInitializer.sol) (lines 277)
+[Source: DopplerHookInitializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/DopplerHookInitializer.sol) (lines 277)
 
 ---
 

@@ -13,13 +13,13 @@ uint256 numTokensToBond = totalTokensOnBondingCurve - numTokensToSell;
 - `numTokensToSell = 800,000`
 - `numTokensToBond = 200,000`
 
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 117-118)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 117-118)
 
 ## Linear Distribution Algorithm
 
 Despite the function name `calculateLogNormalDistribution`, this creates a **linear distribution** with equal token amounts per position.
 
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 283-361)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 283-361)
 
 ### Amount Per Position
 
@@ -29,7 +29,7 @@ uint256 amountPerPosition = FullMath.mulDiv(totalAmtToBeSold, WAD, totalPosition
 
 Simplifies to: `amountPerPosition = totalAmtToBeSold / totalPositions`
 
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 297)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 297)
 
 ### Position Tick Calculation
 
@@ -48,7 +48,7 @@ Where:
 
 **Result**: Positions are evenly distributed from closeTick toward farTick.
 
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 304-306)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 304-306)
 
 ### Liquidity Calculation
 
@@ -60,7 +60,7 @@ uint128 liquidity = isToken0
 
 Each position gets the liquidity amount needed to provide exactly `amountPerPosition` tokens.
 
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 318-324)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 318-324)
 
 ### Reserves Tracking
 
@@ -82,7 +82,7 @@ reserves += (isToken0
 
 **Why undercount?** The reserves are used to calculate the tail position. Undercounting ensures there's always enough liquidity in the tail.
 
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 334-346)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 334-346)
 
 ## Tick Alignment Algorithm
 
@@ -92,7 +92,7 @@ Aligns ticks to valid tick spacing boundaries.
 function alignTickToTickSpacing(bool isToken0, int24 tick, int24 tickSpacing) internal pure returns (int24)
 ```
 
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 225-245)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 225-245)
 
 ### Token0 (Round DOWN)
 
@@ -144,7 +144,7 @@ uint256 numTokensToSell = FullMath.mulDiv(totalTokensOnBondingCurve, maxShareToB
 uint256 numTokensToBond = totalTokensOnBondingCurve - numTokensToSell;  // Goes to tail
 ```
 
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 117-118)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 117-118)
 
 **Total positions created**: `numPositions + 1` (bonding curve positions + 1 tail)
 
@@ -162,7 +162,7 @@ function calculateLpTail(
 ) internal pure returns (LpPosition memory lpTail)
 ```
 
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 249-276)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 249-276)
 
 ### Tail Tick Determination
 
@@ -205,7 +205,7 @@ int24 posTickUpper = isToken0
 | Token0 | `[tickUpper, MAX_TICK]` |
 | Token1 | `[MIN_TICK, tickLower]` |
 
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 270-271)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 270-271)
 
 ## Position Structure
 
@@ -222,7 +222,7 @@ LpPosition({
 
 The tick ordering ensures `tickLower < tickUpper` as required by Uniswap V3.
 
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 349-354)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 349-354)
 
 ## Fee Calculation on Exit
 
@@ -237,7 +237,7 @@ fees1 = uint128(balance1 - amount1);
 - `balance0/1` = total collected (principal + fees)
 - `fees0/1` = difference (accumulated trading fees)
 
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 207-210)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 207-210)
 
 ## Fee Distribution (Lockable)
 
@@ -256,7 +256,7 @@ if (i == beneficiaries.length - 1) {
 }
 ```
 
-[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/LockableUniswapV3Initializer.sol) (lines 280-291)
+[Source: LockableUniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/LockableUniswapV3Initializer.sol) (lines 280-291)
 
 ## Validation Formula
 
@@ -266,4 +266,4 @@ require(totalAssetsSold <= totalAmtToBeSold, CannotMintZeroLiquidity());
 
 Ensures positions don't over-allocate tokens (can happen with rounding).
 
-[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/988dab4/src/initializers/UniswapV3Initializer.sol) (lines 358)
+[Source: UniswapV3Initializer.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/initializers/UniswapV3Initializer.sol) (lines 358)
