@@ -13,5 +13,5 @@
 - `isToken0` reflects whether asset is token0
 
 ## Top-up distributor prerequisites
-- Airlock owner must call `setPullUp(migrator, true)`
+- Ensure `setPullUp(migrator, true)` is configured for the target migrator
 - Top-ups are funded in numeraire via `topUp(asset, numeraire, amount)`

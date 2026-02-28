@@ -42,7 +42,11 @@ metadata:
 - [EXPLORERS.md](references/EXPLORERS.md)
 
 ## Related skills
-- [v4-dynamic-auction](../v4-dynamic-auction/SKILL.md)
-- [v4-multicurve-auction](../v4-multicurve-auction/SKILL.md)
-- [doppler-hook-initializer](../doppler-hook-initializer/SKILL.md)
+- [airlock](../airlock/SKILL.md)
+- [migrator-uniswap-v2](../migrator-uniswap-v2/SKILL.md)
+- [migrator-uniswap-v3](../migrator-uniswap-v3/SKILL.md)
+- [migrator-uniswap-v4](../migrator-uniswap-v4/SKILL.md)
+- [pda-dynamic](../pda-dynamic/SKILL.md)
+- [pda-multicurve](../pda-multicurve/SKILL.md)
+- [doppler-hooks](../doppler-hooks/SKILL.md)
 - [proceeds-split-migration](../proceeds-split-migration/SKILL.md)

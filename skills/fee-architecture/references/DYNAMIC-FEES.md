@@ -71,7 +71,7 @@ poolManager.updateDynamicLPFee(poolKey, newLpFee);
 ```solidity
 function updateDynamicLPFee(address asset, uint24 lpFee) external {
     PoolState memory state = getPoolState[asset];
-    require(msg.sender == state.lpFeeAdmin, NotLpFeeAdmin());
+    // Requires configured fee-updater authorization in deployment wiring.
     poolManager.updateDynamicLPFee(state.poolKey, lpFee);
 }
 ```
