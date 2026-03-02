@@ -6,7 +6,7 @@ metadata:
   version: "2.0"
 ---
 
-> **Source References**: Code citations link to raw GitHub files pinned to commit `46bad16d`.
+> **Source References**: Use [Doppler deployments](https://github.com/whetstoneresearch/doppler/tree/main/deployments) as the contract source of truth for deployed addresses and revisions.
 
 # Token Lifecycle
 
@@ -16,6 +16,9 @@ metadata:
 - You are debugging vesting release, pool lock behavior, or mint-rate logic
 
 ## Prerequisites
+- Determine governance posture first:
+  - `OpenZeppelin Governor: disabled` (default for most launches)
+  - `OpenZeppelin Governor: enabled` (when token-holder governance is required)
 - Determine required token capabilities (votes, permit, clone vs full deployment)
 - Confirm Airlock-compatible factory interface (`ITokenFactory`)
 
@@ -50,6 +53,7 @@ metadata:
 - Source: `doppler/src/tokens/*.sol` (especially `CloneDERC20VotesV2.sol`, `CloneDERC20VotesV2Factory.sol`)
 
 ## Related skills
-- [v3-static-auction](../v3-static-auction/SKILL.md)
-- [v4-dynamic-auction](../v4-dynamic-auction/SKILL.md)
-- [v4-multicurve-auction](../v4-multicurve-auction/SKILL.md)
+- [airlock](../airlock/SKILL.md)
+- [pda-static](../pda-static/SKILL.md)
+- [pda-dynamic](../pda-dynamic/SKILL.md)
+- [pda-multicurve](../pda-multicurve/SKILL.md)

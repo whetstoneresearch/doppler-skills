@@ -1,13 +1,13 @@
 # Fee Distribution
 
-Protocol and integrator fee split during migration.
+Migration-time fee split accounting.
 
 ---
 
 ## Overview
 
 When a Doppler pool migrates, LP fees are split between:
-1. **Protocol (Whetstone)**: Base fee for using the protocol
+1. **System share**: protocol-accounted portion
 2. **Integrator**: Front-end or service that facilitated the launch
 
 ---
@@ -118,42 +118,27 @@ integratorFees = 1 - 0.2 = 0.8 ETH
 
 ---
 
-## Collecting Fees
-
-### Protocol Fees (Owner Only)
+## Claim Paths
 
 ```solidity
-function collectProtocolFees(address to, address token, uint256 amount) external onlyOwner {
-    getProtocolFees[token] -= amount;
-    ERC20(token).safeTransfer(to, amount);
-}
+function collectProtocolFees(address to, address token, uint256 amount) external;
+function collectIntegratorFees(address to, address token, uint256 amount) external;
 ```
 
-[Source: Airlock.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/Airlock.sol) (lines 278-288)
+- Protocol-owner claims use `collectProtocolFees(...)`.
+- Integrator claims use `collectIntegratorFees(...)`.
 
-### Integrator Fees (Integrator Only)
-
-```solidity
-function collectIntegratorFees(address to, address token, uint256 amount) external {
-    getIntegratorFees[msg.sender][token] -= amount;
-    ERC20(token).safeTransfer(to, amount);
-}
-```
-
-[Source: Airlock.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/Airlock.sol) (lines 296-306)
+[Source: Airlock.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/Airlock.sol) (lines 278-288, 296-306)
 
 ---
 
 ## Integrator Assignment
 
-The integrator is set during `Airlock.create()`:
+The integrator is set during `Airlock.create()` and is used as the key for `getIntegratorFees`.
 
-```solidity
-// If no integrator specified, protocol owner becomes integrator
-integrator: createData.integrator == address(0) ? owner() : createData.integrator
-```
+If no integrator is provided, the protocol owner is used as default.
 
-[Source: Airlock.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/Airlock.sol) (lines 182)
+[Source: Airlock.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/Airlock.sol) (line 182)
 
 ---
 

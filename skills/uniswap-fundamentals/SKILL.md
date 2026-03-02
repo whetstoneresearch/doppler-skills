@@ -28,10 +28,10 @@ This skill is intentionally V3/V4-centric for current Doppler development.
 ## Doppler usage map
 | Doppler skill | Uniswap concepts used |
 |---|---|
-| `v3-static-auction` | V3 tick spacing, range liquidity, far-tick exits |
-| `v4-dynamic-auction` | V4 hooks, epoch rebalancing, dynamic liquidity placement |
-| `v4-multicurve-auction` | V4 concentrated ranges, multicurve allocation |
-| `doppler-hook-initializer` | V4 hook permissions and callback integration |
+| `pda-static` | V3 tick spacing, range liquidity, far-tick exits |
+| `pda-dynamic` | V4 hooks, epoch rebalancing, dynamic liquidity placement |
+| `pda-multicurve` | V4 concentrated ranges, multicurve allocation |
+| `doppler-hooks` | V4 hook permissions and callback integration |
 
 ## Critical invariant
 Token ordering (`token0 < token1`) drives:

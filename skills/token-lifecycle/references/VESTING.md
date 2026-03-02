@@ -129,18 +129,7 @@ constructor(
 
 ## Inflation Minting
 
-Owner can mint inflation tokens after pool is unlocked:
-
-```solidity
-function mintInflation() public {
-    require(currentYearStart != 0, MintingNotStartedYet());
-
-    // Calculate mintable based on time elapsed and yearlyMintRate
-    uint256 mintableAmount = supply * yearlyMintRate * elapsed / (1 ether * 365 days);
-
-    _mint(owner(), mintableAmount);
-}
-```
+Inflation minting can begin after pool unlock according to token configuration and schedule.
 
 [Source: DERC20.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/tokens/DERC20.sol) (lines 183-215)
 

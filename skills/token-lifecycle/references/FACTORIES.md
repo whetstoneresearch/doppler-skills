@@ -24,7 +24,7 @@ function create(
     address owner,          // Token owner (governance)
     bytes32 salt,           // Deterministic deployment salt
     bytes calldata data     // Encoded token parameters
-) external onlyAirlock returns (address)
+) external returns (address)
 ```
 
 [Source: TokenFactory.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/tokens/TokenFactory.sol) (lines 20-51)
@@ -62,7 +62,7 @@ function create(
     address owner,
     bytes32 salt,
     bytes calldata tokenData
-) external onlyAirlock returns (address asset)
+) external returns (address asset)
 ```
 
 [Source: CloneERC20Factory.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/tokens/CloneERC20Factory.sol) (lines 44-75)
@@ -110,23 +110,6 @@ Both factories accept the same encoded parameters:
 | `recipients` | `address[]` | Addresses receiving vested tokens |
 | `amounts` | `uint256[]` | Token amounts per recipient |
 | `tokenURI` | `string` | Metadata URI for the token |
-
----
-
-## Access Control
-
-Both factories enforce `onlyAirlock` modifier:
-
-```solidity
-modifier onlyAirlock() {
-    require(msg.sender == AIRLOCK, "Not Airlock");
-    _;
-}
-```
-
-[Source: ImmutableAirlock.sol](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/base/ImmutableAirlock.sol)
-
-**Flow**: Airlock -> TokenFactory -> Token deployment
 
 ---
 
