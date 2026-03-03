@@ -1,0 +1,25 @@
+name: Skills Validation
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Validate skill frontmatter and naming
+        run: bun run validate:skills
+
+      - name: Validate markdown links
+        run: bun run validate:links

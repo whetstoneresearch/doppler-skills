@@ -1,6 +1,7 @@
 ---
 name: liquidity-migration
 description: Select and verify liquidity migration targets across Uniswap V2, V3 (only when v4 is unavailable and custom fees are required), and V4 paths.
+license: MIT
 metadata:
   author: doppler
   version: "1.0"

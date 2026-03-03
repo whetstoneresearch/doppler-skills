@@ -90,6 +90,16 @@ Skills are auto-discovered by context, or you can request one explicitly:
 "Load pda-multicurve and configure the default launch path with 3-5 curves, a max tail, and OpenZeppelin Governor disabled"
 ```
 
+## Maintainer tooling
+
+This repository includes internal validation tooling in `scripts/` for maintainers and CI.
+
+- Run all checks with `bun run validate`
+- These are **not** skill-bundled scripts for end users
+- See `scripts/README.md` for details
+
 ## License
 
-See individual skill directories for license information.
+This repository is MIT licensed (see `LICENSE`).
+
+Each skill also declares `license: MIT` in its `SKILL.md` frontmatter.

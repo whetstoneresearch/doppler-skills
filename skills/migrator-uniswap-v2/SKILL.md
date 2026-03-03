@@ -1,6 +1,7 @@
 ---
 name: migrator-uniswap-v2
 description: Document and verify Doppler's Uniswap V2 liquidity migrator path used during `Airlock.migrate(asset)`.
+license: MIT
 metadata:
   author: doppler
   version: "1.0"

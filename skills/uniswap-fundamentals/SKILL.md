@@ -1,6 +1,7 @@
 ---
 name: uniswap-fundamentals
 description: Reference for Uniswap V3/V4 concepts used in Doppler development, including tick math, sqrtPriceX96, concentrated liquidity formulas, and V4 hooks/singleton architecture.
+license: MIT
 metadata:
   author: uniswap
   version: "2.0"

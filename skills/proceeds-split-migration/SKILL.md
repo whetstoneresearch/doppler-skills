@@ -1,6 +1,7 @@
 ---
 name: proceeds-split-migration
 description: Configure and verify migration-time proceeds split flows using `ProceedsSplitter`, `TopUpDistributor`, `UniswapV4MigratorSplit`, and `UniswapV4MigratorSplitHook`.
+license: MIT
 metadata:
   author: doppler
   version: "1.0"

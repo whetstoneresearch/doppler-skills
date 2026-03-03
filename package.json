@@ -1,0 +1,9 @@
+{
+  "name": "doppler-skills",
+  "private": true,
+  "scripts": {
+    "validate": "bun run validate:skills && bun run validate:links",
+    "validate:skills": "bun run scripts/validate-skills.ts",
+    "validate:links": "bun run scripts/check-links.ts"
+  }
+}

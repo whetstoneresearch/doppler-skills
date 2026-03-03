@@ -1,6 +1,7 @@
 ---
 name: pda-multicurve
 description: Reference for multicurve price discovery auctions with scheduled multicurve as the canonical default; covers shares-based curve allocation, deployment modes, and lifecycle constraints.
+license: MIT
 metadata:
   author: doppler
   version: "2.0"

@@ -1,6 +1,7 @@
 ---
 name: doppler-hooks
 description: Integrate and verify Doppler hook modules, including `DopplerHookInitializer` hook paths, callback flags, and hook-specific runtime behavior.
+license: MIT
 metadata:
   author: doppler
   version: "1.0"

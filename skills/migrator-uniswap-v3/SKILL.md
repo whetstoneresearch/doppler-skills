@@ -1,6 +1,7 @@
 ---
 name: migrator-uniswap-v3
 description: Document and verify Doppler's Uniswap V3 liquidity migrator path, used only on v3-only networks when custom fees are required.
+license: MIT
 metadata:
   author: doppler
   version: "1.0"

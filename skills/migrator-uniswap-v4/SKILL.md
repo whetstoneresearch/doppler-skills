@@ -1,6 +1,7 @@
 ---
 name: migrator-uniswap-v4
 description: Document and verify Doppler's Uniswap V4 migrator functionality, including standard and split migrator paths.
+license: MIT
 metadata:
   author: doppler
   version: "1.0"

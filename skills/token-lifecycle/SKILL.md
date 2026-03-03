@@ -1,6 +1,7 @@
 ---
 name: token-lifecycle
 description: Reference for Doppler token creation, vesting, inflation, and factory selection across DERC20, DERC2080, CloneERC20, and CloneDERC20VotesV2 paths.
+license: MIT
 metadata:
   author: doppler
   version: "2.0"

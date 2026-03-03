@@ -1,6 +1,7 @@
 ---
 name: pda-dynamic
 description: Reference for dynamic price discovery auctions. Use when working with epoch-based rebalancing, tick accumulator logic, slug placement, or proceeds-driven exit conditions.
+license: MIT
 metadata:
   author: doppler
   version: "2.0"

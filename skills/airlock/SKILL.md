@@ -1,6 +1,7 @@
 ---
 name: airlock
 description: Canonical reference for `Airlock` as Doppler's protocol entrypoint, including launch orchestration, migration handoff, and interface coverage.
+license: MIT
 metadata:
   author: doppler
   version: "1.0"

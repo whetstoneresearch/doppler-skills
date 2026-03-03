@@ -1,6 +1,7 @@
 ---
 name: fee-architecture
 description: Reference for Doppler fee collection, distribution, and configuration across Airlock, FeesManager, locker contracts, and hook-based fee paths.
+license: MIT
 metadata:
   author: doppler
   version: "2.0"

@@ -1,6 +1,7 @@
 ---
 name: verification
 description: Verify on-chain Doppler behavior with cast, viem, RPC, and explorers for dynamic auctions, multicurve launches, hook initializer state, and migration flows.
+license: MIT
 metadata:
   author: doppler
   version: "2.0"

@@ -1,6 +1,7 @@
 ---
 name: pda-static
 description: Reference for static price discovery auctions on legacy networks that only support Uniswap v3.
+license: MIT
 metadata:
   author: doppler
   version: "2.0"

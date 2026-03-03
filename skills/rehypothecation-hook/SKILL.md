@@ -1,8 +1,9 @@
 ---
 name: rehypothecation-hook
 description: Operate and configure Doppler's rehypothecation hook (`RehypeDopplerHook`) for buybacks, beneficiary fees, and protocol-owner fee claims.
+license: MIT
 metadata:
-  owner: doppler
+  author: doppler
   version: "2.0"
 ---
 
