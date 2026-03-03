@@ -1,20 +1,13 @@
 # doppler-skills
 
-Doppler is an onchain protocol for launching custom markets and tokens through various price discovery auctions.
-
-This repository provides Agent Skills for working with [Protocol (Doppler)](https://docs.doppler.lol), sourced from canonical protocol contracts and documentation.
-
-## What are Agent Skills?
-
-Agent Skills are a lightweight format for extending AI agents with reusable workflows and domain-specific knowledge.
-
-Learn more at [agentskills.io](https://agentskills.io).
-
-## Installation
-
 ```bash
 npx skills add whetstoneresearch/doppler-skills
 ```
+
+
+Doppler is an onchain protocol for launching custom markets and tokens through various price discovery auctions.
+
+This repository provides Agent Skills for working with [Protocol (Doppler)](https://docs.doppler.lol), sourced from canonical protocol contracts and documentation.
 
 ## Top-Level Protocol Map
 
