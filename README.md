@@ -13,7 +13,7 @@ Learn more at [agentskills.io](https://agentskills.io).
 ## Installation
 
 ```bash
-npx skills add rustydotwtf/doppler-skills
+npx skills add whetstoneresearch/doppler-skills
 ```
 
 ## Top-Level Protocol Map
