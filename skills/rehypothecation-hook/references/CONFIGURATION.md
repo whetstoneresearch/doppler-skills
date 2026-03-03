@@ -2,24 +2,37 @@
 
 ## Initialization Data (Pool Creation)
 - [Source: RehypeDopplerHook](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/dopplerHooks/RehypeDopplerHook.sol)
-- Calldata layout (`abi.encode(...)`):
+- [Source: RehypeDopplerHookMigrator](https://raw.githubusercontent.com/whetstoneresearch/doppler/46bad16d/src/dopplerHooks/RehypeDopplerHookMigrator.sol)
+- Calldata layout (`abi.encode(...)` of `InitData`):
   1. `address numeraire` – token used for pricing buybacks when the asset is token0/1
-  2. `address buybackDst` – recipient for both buybacks and beneficiary fee withdrawals
+  2. `address buybackDst` – recipient for buybacks and beneficiary fee withdrawals
   3. `uint24 customFee` – fee in parts-per-million (ppm), max `1e6`
-  4. `uint256 assetBuybackPercentWad`
-  5. `uint256 numeraireBuybackPercentWad`
-  6. `uint256 beneficiaryPercentWad`
-  7. `uint256 lpPercentWad`
-- Validation: the four percentages must sum to `WAD (1e18)` or initialization reverts.
+  4. `FeeRoutingMode feeRoutingMode`
+  5. `FeeDistributionInfo feeDistributionInfo`:
+     - `assetFeesToAssetBuybackWad`
+     - `assetFeesToNumeraireBuybackWad`
+     - `assetFeesToBeneficiaryWad`
+     - `assetFeesToLpWad`
+     - `numeraireFeesToAssetBuybackWad`
+     - `numeraireFeesToNumeraireBuybackWad`
+     - `numeraireFeesToBeneficiaryWad`
+     - `numeraireFeesToLpWad`
+- Validation:
+  - Asset-fee row must sum to `WAD (1e18)`
+  - Numeraire-fee row must sum to `WAD (1e18)`
 
-## Updating Fee Distribution (buybackDst Path)
+## Updating Fee Distribution (Migrator Variant Only)
+`RehypeDopplerHook` does not expose an external `setFeeDistribution(...)` function.
+
+For deployments using `RehypeDopplerHookMigrator`:
+
 1. Compute `poolId = PoolKey.toId()`.
-2. Call `setFeeDistribution(poolId, asset%, numeraire%, beneficiary%, lp%)` from the `buybackDst` address (enforced by checking `msg.sender == getPoolInfo[poolId].buybackDst`).
-3. If the percentages do not sum to `WAD`, the call reverts (`FeeDistributionMustAddUpToWAD`).
+2. Call `setFeeDistribution(poolId, assetFeesToAssetBuybackWad, assetFeesToNumeraireBuybackWad, assetFeesToBeneficiaryWad, assetFeesToLpWad, numeraireFeesToAssetBuybackWad, numeraireFeesToNumeraireBuybackWad, numeraireFeesToBeneficiaryWad, numeraireFeesToLpWad)` from the `buybackDst` address.
+3. If either 4-field row does not sum to `WAD`, the call reverts (`FeeDistributionMustAddUpToWAD`).
 4. If the caller is not `buybackDst`, the call reverts with `SenderNotAuthorized`.
 5. Recommended guardrails:
-   - Keep `lpPercentWad` ≥ `beneficiaryPercentWad` when swap volume is high to avoid starving rebalancing.
-   - Ensure at least one of the buyback percentages is non-zero if buybackDst expects inflow.
+    - Keep LP allocation healthy (`assetFeesToLpWad`, `numeraireFeesToLpWad`) relative to beneficiary allocation when swap volume is high.
+    - Ensure at least one buyback destination is non-zero per row when `buybackDst` expects inflow.
 
 **Note**: The `setFeeDistributionByBeneficiary()` function has been removed. Fee distribution is now controlled exclusively by `buybackDst`.
 

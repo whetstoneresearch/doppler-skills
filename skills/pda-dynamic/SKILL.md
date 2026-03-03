@@ -30,7 +30,7 @@ metadata:
 - Know the sale asset and numeraire for the target pool
 - Set a pricing stance up front:
   - Start above expected fair value
-  - Set `minPrice` to the lowest acceptable sale price
+  - Set `endingTick` to encode the lowest acceptable sale price floor
   - Prefer `6h-24h` auction windows over multi-day durations
 - Have access to Foundry (`forge`, `cast`) and a compatible RPC endpoint
 
@@ -71,7 +71,7 @@ metadata:
 - Tick misinterpretation from wrong token ordering
 - Incorrect epoch assumptions when `lastEpoch` has not advanced
 - Invalid parameter tuning (`gamma` too aggressive, epoch too short)
-- Setting starting price too low for discovery or `minPrice` below acceptable offer floor
+- Setting starting price too low for discovery or setting `endingTick` below the acceptable price floor
 - Misreading insufficient-proceeds behavior as a hard failure
 
 ## Verification hooks

@@ -55,7 +55,7 @@ metadata:
 ## References
 - [WORKFLOWS.md](references/WORKFLOWS.md)
 - [STATE-MAP.md](references/STATE-MAP.md)
-- Source: `doppler/src/initializers/DopplerHookInitializer.sol`, `doppler/src/base/BaseDopplerHook.sol`, `doppler/docs/DopplerHook.md`
+- Source: `doppler/src/initializers/DopplerHookInitializer.sol`, `doppler/src/base/BaseDopplerHook.sol`, `doppler/docs/DopplerHookInitializer.md`
 
 ## Related skills
 - [rehypothecation-hook](../rehypothecation-hook/SKILL.md)
