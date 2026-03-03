@@ -9,6 +9,8 @@ These files are **not** skill-bundled scripts in the Agent Skills spec sense.
 
 ## What is here
 
+- `check-bun-version.ts`: enforces Bun `>=1.3.8` for this tooling.
+- `validate-markdown-yaml.ts`: parses markdown via `Bun.markdown` and validates SKILL frontmatter via `Bun.YAML.parse`.
 - `validate-skills.ts`: runs `skills-ref validate` against each folder in `skills/`.
 - `check-links.ts`: checks broken relative markdown links under `skills/`.
 

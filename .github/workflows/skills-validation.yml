@@ -17,9 +17,8 @@ jobs:
 
       - name: Set up Bun
         uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.8
 
-      - name: Validate skill frontmatter and naming
-        run: bun run validate:skills
-
-      - name: Validate markdown links
-        run: bun run validate:links
+      - name: Run validation suite
+        run: bun run validate

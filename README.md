@@ -95,6 +95,7 @@ Skills are auto-discovered by context, or you can request one explicitly:
 This repository includes internal validation tooling in `scripts/` for maintainers and CI.
 
 - Run all checks with `bun run validate`
+- Validation includes Bun `>=1.3.8` checks, markdown parsing, YAML frontmatter parsing, skills-ref checks, and link checks
 - These are **not** skill-bundled scripts for end users
 - See `scripts/README.md` for details
 
