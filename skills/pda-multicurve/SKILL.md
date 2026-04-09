@@ -16,7 +16,7 @@ metadata:
 - Curve posture: predictable supply curves
 - Governance: `OpenZeppelin Governor: disabled`
 - Migration: none
-- Hook path: `DopplerHookInitializer` + rehypothecation hook (`RehypeDopplerHook`)
+- Hook path: `DopplerHookInitializer` + `RehypeDopplerHookInitializer`
 - Beneficiaries: custom fee beneficiary setup
 - Preallocation: 3 addresses
 - Market posture: widely supported in production flows; commonly used by teams including Zora and Bankr
@@ -42,7 +42,7 @@ metadata:
 3. Choose deployment mode:
    - Default: non-migrating launch path
    - Advanced: migrable/locked lifecycle paths when required
-4. Configure hook initializer and module path (`DopplerHookInitializer` + rehypothecation hook `RehypeDopplerHook`) with beneficiary fee routing.
+4. Configure hook initializer and module path (`DopplerHookInitializer` + `RehypeDopplerHookInitializer`) with beneficiary fee routing and the intended Rehype fee schedule.
 5. Initialize pool with scheduled multicurve (`UniswapV4ScheduledMulticurveInitializer`) and set `startingTime = 0` unless delayed launch gating is intentional.
 6. Verify lifecycle path, preallocation recipients, and claims flow for the chosen mode.
 

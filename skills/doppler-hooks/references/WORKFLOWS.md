@@ -10,7 +10,7 @@
 ## 2) Validate runtime behavior
 - Read `getState(asset)` and derive `poolKey`/`poolId`.
 - Confirm callbacks are firing for expected events.
-- For swap-time behavior, inspect hook-specific storage (`ScheduledLaunchDopplerHook`, `SwapRestrictorDopplerHook`, `RehypeDopplerHook`).
+- For swap-time behavior, inspect hook-specific storage (`ScheduledLaunchDopplerHook`, `SwapRestrictorDopplerHook`, `RehypeDopplerHookInitializer`).
 
 ## 3) Graduation and migration checks
 - Verify status progression and tick/proceeds conditions before exit/migrate calls.
