@@ -38,7 +38,7 @@ metadata:
 |---|---|---|
 | Protocol/integrator accounting | `src/Airlock.sol` | `collectProtocolFees(...)`, `collectIntegratorFees(...)` |
 | Beneficiary fees (initializer/locker) | `src/base/FeesManager.sol`, locker modules | `collectFees(...)` |
-| Rehype hook beneficiary + protocol-owner buckets | `src/dopplerHooks/RehypeDopplerHookInitializer.sol` | `collectFees(asset)`, `claimAirlockOwnerFees(asset)` |
+| `RehypeDopplerHookInitializer` beneficiary + protocol-owner buckets | `src/dopplerHooks/RehypeDopplerHookInitializer.sol` | `collectFees(asset)`, `claimAirlockOwnerFees(asset)` |
 
 ## Failure modes
 - Wrong signer for beneficiary claim/update methods
