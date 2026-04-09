@@ -20,11 +20,11 @@ Use this path for `RehypeDopplerHookInitializer`.
   7. `FeeRoutingMode feeRoutingMode`
   8. `FeeDistributionInfo feeDistributionInfo`
 - Validation:
-  - `startFee <= MAX_SWAP_FEE`
-  - `endFee <= MAX_SWAP_FEE`
+  - `startFee <= MAX_SWAP_FEE` (currently `0.8e6`, or 80%)
+  - `endFee <= MAX_SWAP_FEE` (currently `0.8e6`, or 80%)
   - `startFee >= endFee`
   - if `startFee > endFee`, `durationSeconds > 0`
-  - each 4-field fee-distribution row must sum to `WAD (1e18)`
+  - each 4-field fee-distribution row must sum to `WAD` (`1e18`, or 100%)
   - `startingTime` is normalized to `block.timestamp` when passed as `0` or already in the past
 - Operational note:
   - initializer-side Rehype does not use `getHookFees(poolId).customFee` as its fee source of truth
@@ -40,8 +40,8 @@ Use this path for `RehypeDopplerHookMigrator`.
   4. `FeeRoutingMode feeRoutingMode`
   5. `FeeDistributionInfo feeDistributionInfo`
 - Validation:
-  - `customFee <= MAX_SWAP_FEE`
-  - each 4-field fee-distribution row must sum to `WAD (1e18)`
+  - `customFee <= MAX_SWAP_FEE` (currently `0.8e6`, or 80%)
+  - each 4-field fee-distribution row must sum to `WAD` (`1e18`, or 100%)
 - Operational note:
   - migrator-side Rehype stores its static fee in `getHookFees(poolId).customFee`
 
@@ -52,7 +52,7 @@ For deployments using `RehypeDopplerHookMigrator`:
 
 1. Compute `poolId = PoolKey.toId()`.
 2. Call `setFeeDistribution(poolId, assetFeesToAssetBuybackWad, assetFeesToNumeraireBuybackWad, assetFeesToBeneficiaryWad, assetFeesToLpWad, numeraireFeesToAssetBuybackWad, numeraireFeesToNumeraireBuybackWad, numeraireFeesToBeneficiaryWad, numeraireFeesToLpWad)` from the `buybackDst` address.
-3. If either 4-field row does not sum to `WAD`, the call reverts (`FeeDistributionMustAddUpToWAD`).
+3. If either 4-field row does not sum to `WAD` (`1e18`, or 100%), the call reverts (`FeeDistributionMustAddUpToWAD`).
 4. If the caller is not `buybackDst`, the call reverts with `SenderNotAuthorized`.
 5. Recommended guardrails:
    - Keep LP allocation healthy (`assetFeesToLpWad`, `numeraireFeesToLpWad`) relative to beneficiary allocation when swap volume is high.
@@ -83,7 +83,7 @@ Both Rehype variants track a protocol-owner fee bucket.
 
 ## Runtime notes
 - Rehype takes a fixed 5% share of the raw hook fee for the Airlock owner, with the remaining 95% routed through buybacks, beneficiary accounting, and LP reinvestment.
-- Routing only proceeds once accumulated `fees0` or `fees1` exceed `EPSILON`.
+- Routing only proceeds once accumulated `fees0` or `fees1` exceed `EPSILON` (currently `1e6`).
 - LP-designated fees are rebalanced and added back into a full-range LP position instead of sitting idle.
 
 ## Operational Checklist

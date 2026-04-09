@@ -50,7 +50,7 @@ metadata:
 
 ## Failure modes
 - Treating initializer-side Rehype as a static `customFee` hook instead of a fee-schedule hook
-- Distribution does not sum to `WAD`
+- Distribution does not sum to `WAD` (`1e18`, or 100%)
 - Non-authorized caller for distribution update on migrator variant
 - Non-owner caller for protocol-owner fee claim
 - Confusing Rehype `beneficiaryFees` with initializer or migrator beneficiary-share accounting
