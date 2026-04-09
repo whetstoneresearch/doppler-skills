@@ -1,11 +1,11 @@
 # Configuration Guide
 
 ## Source of truth
-- `doppler/src/dopplerHooks/RehypeDopplerHookInitializer.sol`
-- `doppler/src/dopplerHooks/RehypeDopplerHookMigrator.sol`
-- `doppler/src/types/RehypeTypes.sol`
-- `doppler/docs/RehypeDopplerHookInitializer.md`
-- `doppler/docs/RehypeDopplerHookMigrator.md`
+- [RehypeDopplerHookInitializer.sol](https://github.com/whetstoneresearch/doppler/blob/74867435b00969c527eb7af618a31a53626cb05d/src/dopplerHooks/RehypeDopplerHookInitializer.sol)
+- [RehypeDopplerHookMigrator.sol](https://github.com/whetstoneresearch/doppler/blob/74867435b00969c527eb7af618a31a53626cb05d/src/dopplerHooks/RehypeDopplerHookMigrator.sol)
+- [RehypeTypes.sol](https://github.com/whetstoneresearch/doppler/blob/74867435b00969c527eb7af618a31a53626cb05d/src/types/RehypeTypes.sol)
+- [RehypeDopplerHookInitializer.md](https://github.com/whetstoneresearch/doppler/blob/74867435b00969c527eb7af618a31a53626cb05d/docs/RehypeDopplerHookInitializer.md)
+- [RehypeDopplerHookMigrator.md](https://github.com/whetstoneresearch/doppler/blob/74867435b00969c527eb7af618a31a53626cb05d/docs/RehypeDopplerHookMigrator.md)
 
 ## Initializer-side configuration
 Use this path for `RehypeDopplerHookInitializer`.
