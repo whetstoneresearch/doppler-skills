@@ -21,7 +21,7 @@ This repository provides Agent Skills for working with [Protocol (Doppler)](http
 
 | Skill | Positioning | Recommended usage |
 |-------|-------------|-------------|
-| `pda-multicurve` | Primary/default path | Low/medium-value assets with predictable supply curves: no governance, no migration, `3-5` curves, max-tail to infinity (`max` in SDK), `UniswapV4ScheduledMulticurveInitializer` with `startingTime = 0`, and hook path via `DopplerHookInitializer` + rehypothecation hook (`RehypeDopplerHook`) plus custom beneficiary fee setup and preallocation to 3 addresses. |
+| `pda-multicurve` | Primary/default path | Low/medium-value assets with predictable supply curves: no governance, no migration, `3-5` curves, max-tail to infinity (`max` in SDK), `UniswapV4ScheduledMulticurveInitializer` with `startingTime = 0`, and hook path via `DopplerHookInitializer` + `RehypeDopplerHookInitializer` plus custom beneficiary fee setup and preallocation to 3 addresses. |
 | `pda-dynamic` | Premium/high-value path | High/ultra-high-value assets with maximally capital-efficient curves: no governance, dynamic repricing up/down, V4 migration path, custom beneficiary fee setup, allocations to `3-6+` addresses, and a configuration tuned for serious launches (project coins/protocol tokens). |
 | `pda-static` | Legacy fallback path | Only for legacy networks that support Uniswap v3 but not Uniswap v4. |
 
@@ -40,7 +40,7 @@ This repository provides Agent Skills for working with [Protocol (Doppler)](http
 | Skill | Scope |
 |-------|-------|
 | `doppler-hooks` | Canonical hook architecture and operations (`DopplerHookInitializer`, base hook callbacks, deployment controls). |
-| `rehypothecation-hook` | Rehypothecation hook module (`RehypeDopplerHook`) for buybacks, beneficiary fees, and protocol-owner fee flows. |
+| `rehypothecation-hook` | Rehype hook variants (`RehypeDopplerHookInitializer`, `RehypeDopplerHookMigrator`) for buybacks, beneficiary fees, fee routing, and protocol-owner fee flows. |
 
 ## Suggested Usage Profiles
 
@@ -50,7 +50,7 @@ This repository provides Agent Skills for working with [Protocol (Doppler)](http
 - Curve style: predictable supply curves
 - Migration: none
 - Governance: `OpenZeppelin Governor: disabled`
-- Hook path: `DopplerHookInitializer` + rehypothecation hook (`RehypeDopplerHook`)
+- Hook path: `DopplerHookInitializer` + `RehypeDopplerHookInitializer`
 - Fees: custom beneficiary fee setup
 - Allocations: preallocate to 3 addresses
 - Positioning note: widely supported in production flows; commonly used by teams including Zora and Bankr
