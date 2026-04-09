@@ -28,7 +28,7 @@ metadata:
     - Beneficiary fee tracking in `FeesManager` / locker modules
 2. Confirm storage location for each fee bucket:
     - `Airlock` fee accounting mappings
-    - Hook-local storage (for example `RehypeDopplerHookInitializer` fee buckets)
+    - `RehypeDopplerHookInitializer` fee buckets
     - Locker/initializer `collectFees` paths for beneficiaries
 3. Validate claim paths for each actor (beneficiary, buyback destination, integrator, or protocol owner).
 4. Reconcile balances before and after claims on-chain.
