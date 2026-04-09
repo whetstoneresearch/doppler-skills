@@ -28,7 +28,7 @@ metadata:
     - Beneficiary fee tracking in `FeesManager` / locker modules
 2. Confirm storage location for each fee bucket:
     - `Airlock` fee accounting mappings
-    - Hook-local storage (for example `RehypeDopplerHookInitializer` or `RehypeDopplerHookMigrator` fee buckets)
+    - Hook-local storage (for example `RehypeDopplerHookInitializer` fee buckets)
     - Locker/initializer `collectFees` paths for beneficiaries
 3. Validate claim paths for each actor (beneficiary, buyback destination, integrator, or protocol owner).
 4. Reconcile balances before and after claims on-chain.
@@ -38,21 +38,21 @@ metadata:
 |---|---|---|
 | Protocol/integrator accounting | `src/Airlock.sol` | `collectProtocolFees(...)`, `collectIntegratorFees(...)` |
 | Beneficiary fees (initializer/locker) | `src/base/FeesManager.sol`, locker modules | `collectFees(...)` |
-| Rehype hook beneficiary + protocol-owner buckets | `src/dopplerHooks/RehypeDopplerHookInitializer.sol`, `src/dopplerHooks/RehypeDopplerHookMigrator.sol` | `collectFees(asset)`, `claimAirlockOwnerFees(asset)` |
+| Rehype hook beneficiary + protocol-owner buckets | `src/dopplerHooks/RehypeDopplerHookInitializer.sol` | `collectFees(asset)`, `claimAirlockOwnerFees(asset)` |
 
 ## Failure modes
 - Wrong signer for beneficiary claim/update methods
 - Wrong signer for protocol/integrator claim methods
 - Using stale pool status assumptions (`Initialized` vs `Locked`/`Graduated`)
 - Confusing proceeds split logic with LP fee accounting
-- Confusing Rehype internal `beneficiaryFees` with initializer, locker, or migrator beneficiary-share accounting
+- Confusing Rehype internal `beneficiaryFees` with initializer or locker beneficiary-share accounting
 - Treating V2-only mechanics as active defaults
 
 ## References
 - [COLLECTION.md](references/COLLECTION.md)
 - [DISTRIBUTION.md](references/DISTRIBUTION.md)
 - [DYNAMIC-FEES.md](references/DYNAMIC-FEES.md)
-- Source: `doppler/src/Airlock.sol`, `doppler/src/base/FeesManager.sol`, `doppler/src/StreamableFeesLockerV2.sol`, `doppler/src/dopplerHooks/RehypeDopplerHookInitializer.sol`, `doppler/src/dopplerHooks/RehypeDopplerHookMigrator.sol`, `doppler/src/types/RehypeTypes.sol`
+- Source: `doppler/src/Airlock.sol`, `doppler/src/base/FeesManager.sol`, `doppler/src/StreamableFeesLockerV2.sol`, `doppler/src/dopplerHooks/RehypeDopplerHookInitializer.sol`, `doppler/src/types/RehypeTypes.sol`
 
 ## Related skills
 - [airlock](../airlock/SKILL.md)

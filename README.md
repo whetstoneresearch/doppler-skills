@@ -40,7 +40,7 @@ This repository provides Agent Skills for working with [Protocol (Doppler)](http
 | Skill | Scope |
 |-------|-------|
 | `doppler-hooks` | Canonical hook architecture and operations (`DopplerHookInitializer`, base hook callbacks, deployment controls). |
-| `rehypothecation-hook` | Rehype hook variants (`RehypeDopplerHookInitializer`, `RehypeDopplerHookMigrator`) for buybacks, beneficiary fees, fee routing, and protocol-owner fee flows. |
+| `rehypothecation-hook` | Rehype initializer hook (`RehypeDopplerHookInitializer`) for buybacks, beneficiary fees, fee routing, and protocol-owner fee flows. |
 
 ## Suggested Usage Profiles
 

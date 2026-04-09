@@ -34,7 +34,7 @@ metadata:
 4. Verify graduation / migration behavior for the configured hook path.
 
 ## Supported hook modules
-- Rehypothecation hooks (`RehypeDopplerHookInitializer`, `RehypeDopplerHookMigrator`) for buybacks, fee routing, and protocol-owner fee claims
+- Rehypothecation hook (`RehypeDopplerHookInitializer`) for buybacks, fee routing, and protocol-owner fee claims
 - `ScheduledLaunchDopplerHook` for start-time gates
 - `SwapRestrictorDopplerHook` for per-address amount ceilings
 
@@ -44,7 +44,7 @@ metadata:
 | Initializer contract | `DopplerHookInitializer` |
 | Base hook contract | `BaseDopplerHook` |
 | Core callback flags | `ON_INITIALIZATION_FLAG`, `ON_SWAP_FLAG`, `ON_GRADUATION_FLAG` |
-| Common module | Rehypothecation hooks (`RehypeDopplerHookInitializer`, `RehypeDopplerHookMigrator`) |
+| Common module | Rehypothecation hook (`RehypeDopplerHookInitializer`) |
 
 ## Failure modes
 - Hook module not enabled for the target deployment
