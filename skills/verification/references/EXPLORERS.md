@@ -222,8 +222,8 @@ Doppler runs a GraphQL indexer (Ponder) for querying token and pool data.
 
 | Environment | URL | Supported Chains |
 |-------------|-----|------------------|
-| Production | `https://indexer-prod.marble.live/` | Base (8453), Unichain (130), Monad (143), Ink (57073) |
-| Development | `https://testnet-indexer.doppler.lol/` | Base Sepolia (84532) |
+| Production | `https://prod.indexer.doppler.lol/` | Base (8453), Unichain (130), Monad (143), Ink (57073) |
+| Development | `https://test.indexer.doppler.lol/` | Base Sepolia (84532) |
 
 ### Check Indexer Health
 
@@ -239,12 +239,12 @@ query IndexerStatus {
 
 ```bash
 # Check production indexer health
-curl -s -X POST 'https://indexer-prod.marble.live/' \
+curl -s -X POST 'https://prod.indexer.doppler.lol/' \
   -H 'Content-Type: application/json' \
   -d '{"query": "{ _meta { status } }"}' | jq
 
 # Check testnet indexer health
-curl -s -X POST 'https://testnet-indexer.doppler.lol/' \
+curl -s -X POST 'https://test.indexer.doppler.lol/' \
   -H 'Content-Type: application/json' \
   -d '{"query": "{ _meta { status } }"}' | jq
 ```
@@ -423,12 +423,12 @@ cat > /tmp/query.json << 'EOF'
 EOF
 
 # Query production indexer (mainnet chains)
-curl -s -X POST 'https://indexer-prod.marble.live/' \
+curl -s -X POST 'https://prod.indexer.doppler.lol/' \
   -H 'Content-Type: application/json' \
   -d @/tmp/query.json | jq
 
 # Query testnet indexer (Base Sepolia)
-curl -s -X POST 'https://testnet-indexer.doppler.lol/' \
+curl -s -X POST 'https://test.indexer.doppler.lol/' \
   -H 'Content-Type: application/json' \
   -d @/tmp/query.json | jq
 ```
