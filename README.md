@@ -11,6 +11,15 @@ This repository provides Agent Skills for working with [Protocol (Doppler)](http
 
 ## Top-Level Protocol Map
 
+### Chains
+
+| Skill family | Scope |
+|-------|-------|
+| EVM skills | `airlock`, `pda-*`, `migrator-uniswap-*`, hook, fee, lifecycle, and verification skills for EVM Doppler. |
+| Solana skills | `solana-*` skills for `doppler-sol` launch, CPMM, migration, hook, fee, SDK lookup, and verification flows. |
+
+## EVM Protocol Map
+
 ### Entrypoint
 
 | Skill | Scope |
@@ -41,6 +50,30 @@ This repository provides Agent Skills for working with [Protocol (Doppler)](http
 |-------|-------|
 | `doppler-hooks` | Canonical hook architecture and operations (`DopplerHookInitializer`, base hook callbacks, deployment controls). |
 | `rehypothecation-hook` | Rehype initializer hook (`RehypeDopplerHookInitializer`) for buybacks, beneficiary fees, fee routing, and protocol-owner fee flows. |
+
+## Solana Protocol Map
+
+### Entrypoint and launch lifecycle
+
+| Skill | Scope |
+|-------|-------|
+| `solana-launch-initializer` | Solana launch creation, bonding-curve trading, hook configuration, migration handoff, authorized no-migrator launches, launch fee state, and initializer PDA semantics. |
+
+### Post-launch CPMM and migration
+
+| Skill | Scope |
+|-------|-------|
+| `solana-cpmm` | CPMM pools, positions, swaps, liquidity, protocol fee positions, oracle accounts, hooks, and PDA-based pool addressing. |
+| `solana-cpmm-migration` | Initializer migration into CPMM pools, including migrator payloads, state PDAs, migrated pool hook config, recipient distribution, and remaining-account order. |
+
+### Solana hooks, fees, SDK, and verification
+
+| Skill | Scope |
+|-------|-------|
+| `solana-hooks` | External hook programs for Initializer curve swaps and CPMM swaps/liquidity actions, including CPI return data and remaining-account behavior. |
+| `solana-fee-accounting` | Launch, CPMM, protocol, and migration fee accounting across Initializer, CPMM, and CPMM migrator flows. |
+| `solana-sdk-and-lookup` | IDLs and TypeScript SDK address derivation, account decoding, launch discovery, migrator payload encoding, and RPC lookup patterns. |
+| `solana-verification` | Solana RPC, SDK decoders, IDLs, transaction logs, explorer/indexer evidence, and deterministic account checks. |
 
 ## Suggested Usage Profiles
 
@@ -88,6 +121,10 @@ Skills are auto-discovered by context, or you can request one explicitly:
 
 ```text
 "Load pda-multicurve and configure the default launch path with 3-5 curves, a max tail, and OpenZeppelin Governor disabled"
+```
+
+```text
+"Load solana-launch-initializer and solana-cpmm-migration to configure a doppler-sol launch that migrates into CPMM"
 ```
 
 ## Maintainer tooling
