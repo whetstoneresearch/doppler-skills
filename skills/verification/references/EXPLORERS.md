@@ -410,13 +410,15 @@ query Pool($address: String!, $chainId: Float!) {
 
 ### Execute Query
 
+Populate token and pool addresses from SDK or deployment helpers. Do not copy hardcoded addresses into skill examples.
+
 ```bash
 # Write query to file
 cat > /tmp/query.json << 'EOF'
 {
   "query": "query Token($address: String!, $chainId: Float!) { token(address: $address, chainId: $chainId) { address name symbol decimals totalSupply holderCount pool { address tick sqrtPrice price totalProceeds totalTokensSold migrated graduationPercentage } } }",
   "variables": {
-    "address": "0xfddc000a17e94aeb762a3d0852e071f4b0bcb6ff",
+    "address": "<TOKEN_ADDRESS_FROM_SDK>",
     "chainId": 84532
   }
 }
@@ -462,14 +464,14 @@ curl -s -X POST 'https://test.indexer.doppler.lol/' \
 {
   "data": {
     "token": {
-      "address": "0xfddc000a17e94aeb762a3d0852e071f4b0bcb6ff",
-      "name": "chuangaaa",
-      "symbol": "chuanga",
+      "address": "<TOKEN_ADDRESS_FROM_SDK>",
+      "name": "<TOKEN_NAME>",
+      "symbol": "<TOKEN_SYMBOL>",
       "decimals": 18,
       "totalSupply": "1000000000000000000000000000",
       "holderCount": 3,
       "pool": {
-        "address": "0x0bd4b93b1936fc6d7360d1b7733d56355f0bf8e0",
+        "address": "<POOL_ADDRESS_FROM_SDK>",
         "tick": 155550,
         "sqrtPrice": "188988788814121998333541493509370",
         "price": "175746661556",
@@ -487,7 +489,7 @@ curl -s -X POST 'https://test.indexer.doppler.lol/' \
 
 ## DopplerLens Quoter
 
-Doppler deploys a lens contract for off-chain queries. Check `Deployments.md` in the doppler repo for addresses.
+Doppler deploys a lens contract for off-chain queries. Resolve the lens address through SDK or deployment exports.
 
 ### Using DopplerLens
 
