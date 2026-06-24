@@ -1,6 +1,6 @@
 ---
 name: solana-launch-initializer
-description: "Canonical reference for doppler-sol launch creation, bonding-curve trading, hook configuration, migration handoff, authorized no-migrator launches, launch fee state, and initializer PDA semantics."
+description: "Canonical reference for doppler-sol launch creation, bonding-curve trading, hook configuration, cosigner-gated launch payloads, migration handoff, authorized no-migrator launches, launch fee state, and initializer PDA semantics."
 license: MIT
 metadata:
   author: doppler
@@ -14,7 +14,7 @@ metadata:
 ## When to use
 - You are creating, inspecting, or supporting a Solana Doppler launch.
 - You need the Solana equivalent of the Airlock launch lifecycle.
-- You need launch PDA lookup, launch phases, curve swap behavior, or authorized no-migrator semantics.
+- You need launch PDA lookup, launch phases, curve swap behavior, cosigner hook gating, or authorized no-migrator semantics.
 
 ## Mental model
 The Initializer is the Solana launch entrypoint. It creates the base mint, launch vaults, launch state, launch fee state, optional hook configuration, and optional migrator configuration.
@@ -45,6 +45,8 @@ Do not map it one-to-one to EVM Airlock modules. Solana uses one initializer pro
 | Sell direction | `TRADE_DIRECTION_SELL = 1` |
 | Supported curve | XYK with virtual reserves |
 | Payload buffer | `PayloadBuf`, max 256 bytes |
+| Empty cosigner hook payload | signature-required gate until migration |
+| Expiring cosigner hook payload | 42 bytes; version, expiry mode, expiry value, cosigner hint |
 
 ## Failure modes
 - Looking up a launch by asset mint instead of `(namespace, launch_id)`.
@@ -52,6 +54,7 @@ Do not map it one-to-one to EVM Airlock modules. Solana uses one initializer pro
 - Forgetting reserved base: curve trading excludes `base_for_distribution + base_for_liquidity`.
 - Passing migrator payloads or nonzero `base_for_liquidity` for a no-migrator launch.
 - Passing nonzero hook or migrator remaining-account commitment hashes when the corresponding path is disabled.
+- Using an expiring cosigner hook payload without committing the matching `[namespace, cosigner_config, cosigner]` remaining-account hash.
 - Creating a permissionless launch without a migrator; permissionless launches require a migrator and non-empty migrate payload.
 - Assuming no-migrator is the same as EVM `NoOpMigrator`; it is different by design.
 - Omitting hook or migrator remaining accounts required by the configured external program.

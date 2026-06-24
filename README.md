@@ -70,9 +70,9 @@ This repository provides Agent Skills for working with [Protocol (Doppler)](http
 
 | Skill | Scope |
 |-------|-------|
-| `solana-hooks` | External hook programs for Initializer curve swaps and CPMM swaps/liquidity actions, including CPI return data and remaining-account behavior. |
+| `solana-hooks` | External hook programs for Initializer curve swaps and CPMM swaps/liquidity actions, including cosigner-hook expiry payloads, CPI return data, and remaining-account behavior. |
 | `solana-fee-accounting` | Launch, CPMM, protocol, and migration fee accounting across Initializer, CPMM, and CPMM migrator flows. |
-| `solana-sdk-and-lookup` | IDLs and TypeScript SDK address derivation, account decoding, launch discovery, migrator payload encoding, and RPC lookup patterns. |
+| `solana-sdk-and-lookup` | IDLs and TypeScript SDK address derivation, account decoding, launch discovery, hook payload decoding, migrator payload encoding, and RPC lookup patterns. |
 | `solana-verification` | Solana RPC, SDK decoders, IDLs, transaction logs, explorer/indexer evidence, and deterministic account checks. |
 
 ## Suggested Usage Profiles

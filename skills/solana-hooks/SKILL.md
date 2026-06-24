@@ -1,6 +1,6 @@
 ---
 name: solana-hooks
-description: "Integrate and verify doppler-sol external hook programs for Initializer curve swaps and CPMM swaps/liquidity actions, including CPI return data and remaining-account behavior."
+description: "Integrate and verify doppler-sol external hook programs for Initializer curve swaps and CPMM swaps/liquidity actions, including cosigner-hook expiry payloads, CPI return data, and remaining-account behavior."
 license: MIT
 metadata:
   author: doppler
@@ -14,6 +14,7 @@ metadata:
 ## When to use
 - You are integrating an external policy hook for a Solana Doppler launch or CPMM pool.
 - You need to reason about Initializer hook flags or CPMM hook flags.
+- You need to configure or debug cosigner hook gating.
 - A swap or liquidity operation fails due to CPI return data or missing remaining accounts.
 
 ## Mental model
@@ -37,11 +38,14 @@ This is the closest Solana analog to EVM hook extensibility, but it is not a Uni
 | Initializer missing return data | tolerated as allow/no change |
 | CPMM before-action missing return data | error when hook is enabled |
 | CPMM after-action missing return data | tolerated |
+| Cosigner hooks | Empty payload keeps signature gating active until migration; 42-byte payload can expire by timestamp or slot |
 
 ## Failure modes
 - Hook program not allowlisted at configuration time.
 - Hook account omitted even though stored launch/pool config requires it.
 - Remaining accounts not forwarded in the order expected by the hook.
+- Treating an empty cosigner payload as an expired gate; it is the legacy signature-required mode.
+- Hashing the wrong cosigner remaining-account list; expiring cosigner launches commit to `[namespace, cosigner_config, cosigner]`.
 - Assuming Initializer and CPMM missing-return-data behavior is identical.
 - Treating Initializer hook fee overrides as persistent configuration.
 
