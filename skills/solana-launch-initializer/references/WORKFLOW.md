@@ -18,6 +18,7 @@ Key checks:
 - `base_for_liquidity == 0` when no migrator is configured
 - hook flags use only the supported `HF_*` bits
 - hook and migrator remaining-account commitment hashes are present only when required
+- expiring cosigner hook launches commit `hook_remaining_accounts_hash` over `[namespace, cosigner_config, cosigner]`
 - metadata accounts are provided when metadata fields require metadata creation
 - `curve_virtual_quote > 0`
 - `curve_virtual_base > 0`
@@ -50,6 +51,8 @@ quote_reserve = quote_vault.amount
 Marks a launch migrated and invokes the configured migrator with the standard account prefix plus caller-supplied remaining accounts.
 
 The initializer uses signed CPI so migrators can act with `launch_authority` over launch vaults.
+
+Cosigner hooks gate initializer swaps only while the launch remains in the initializer trading phase. After migration, CPMM swaps are governed by the migrated CPMM pool configuration, not by the initializer launch hook.
 
 ## Fee state
 `LaunchFeeState` is initialized at `[b"launch_fee_state", launch]` and stores protocol fee bps, launch swap fee bps, fee beneficiaries, cumulative base/quote fees, and distributed fee accounting.

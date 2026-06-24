@@ -1,6 +1,6 @@
 ---
 name: solana-sdk-and-lookup
-description: "Use doppler-sol IDLs and the published TypeScript SDK for address derivation, account decoding, launch discovery, migrator payload encoding, and RPC lookup patterns."
+description: "Use doppler-sol IDLs and the published TypeScript SDK for address derivation, account decoding, launch discovery, hook payload decoding, migrator payload encoding, and RPC lookup patterns."
 license: MIT
 metadata:
   author: doppler
@@ -14,7 +14,7 @@ metadata:
 ## When to use
 - You need to derive Doppler Solana addresses from known inputs.
 - You need to fetch or decode launch, CPMM, or migrator accounts.
-- You need to build initializer or migrator payloads with the SDK or IDLs.
+- You need to build or inspect initializer hook payloads or migrator payloads with the SDK or IDLs.
 - You are looking for an asset-keyed EVM helper equivalent.
 
 ## Core workflow
@@ -31,6 +31,7 @@ metadata:
 | Launch fetch/decode | published SDK initializer helpers or IDL-generated clients |
 | CPMM core helpers | published SDK Solana exports and `idl/*/cpmm.json` |
 | CPMM migrator payloads | published SDK Solana exports and `idl/*/cpmm_migrator.json` |
+| Hook payloads | launch `hookPayload` plus `hookRemainingAccountsHash` |
 | Launch id helper | `launchIdFromU64` |
 | Account discovery | `getProgramAccounts` with discriminator filters |
 
@@ -38,6 +39,7 @@ metadata:
 - Searching for launch state by base mint only.
 - Passing a non-32-byte `launch_id`.
 - Building migrator payloads manually and exceeding `MAX_PAYLOAD`.
+- Treating arbitrary hook payload bytes as the cosigner expiry format without validating length, version, and mode.
 - Forgetting account discriminator offset `0`.
 - Using stale SDK or IDL versions.
 
